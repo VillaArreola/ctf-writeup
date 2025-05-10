@@ -1,5 +1,6 @@
 ---
 import { getCollection, getEntryBySlug } from 'astro:content';
+import CTFLayout from '../../layouts/CTFLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('ctf');
@@ -10,32 +11,8 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const post = await getEntryBySlug('ctf', slug);
-
-if (!post) {
-  throw new Error('Post no encontrado');
-}
-
+if (!post) throw new Error('Post no encontrado');
 const { Content } = await post.render();
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{post.data.title}</title>
-  </head>
-  <body class="bg-black text-white px-4 py-8">
-    <main class="max-w-3xl mx-auto">
-      <nav class="mb-6">
-        <a href="/" class="text-cyan-400 hover:underline">← Volver al índice</a>
-      </nav>
-
-      <h1 class="text-3xl font-bold mb-2">{post.data.title}</h1>
-      <p class="text-sm text-gray-400 mb-6">
-        Plataforma: {post.data.platform} · Publicado: {new Date(post.data.publishedAt).toLocaleDateString()}
-      </p>
-
-      <Content />
-    </main>
-  </body>
-  
-</html>
+<CTFLayout Content={Content} frontmatter={{ ...post.data, slug }} />

@@ -14,10 +14,13 @@
     "@tailwindcss/vite": "^4.1.6",
     "astro": "^5.7.12",
     "dotenv": "^16.5.0",
-    "notion-to-md": "^3.1.8",
-    "tailwindcss": "^4.1.6"
+    "notion-to-md": "^3.1.8"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.6",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
