@@ -24,7 +24,7 @@ const postsJson = JSON.stringify(simplified);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VA Writeups</title>
+    <title>Writeups</title>
 
     <script type="module">
       import Alpine from 'https://cdn.skypack.dev/alpinejs';
@@ -49,13 +49,7 @@ const postsJson = JSON.stringify(simplified);
           }
         })"
       >
-        <h2 class="text-3xl font-bold mb-4 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
-
-        <div class="flex flex-wrap gap-3 items-center mb-6">
-          <button @click="search.query = 'HTB'" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3 py-1 rounded-full">HTB</button>
-          <button @click="search.query = 'THM'" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3 py-1 rounded-full">THM</button>
-          <button @click="search.query = 'reverse shell'" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3 py-1 rounded-full">reverse shell</button>
-        </div>
+       
 
         <div class="grid grid-cols-8 gap-6">
           <template x-for="(post, i) in posts" :key="post.slug">

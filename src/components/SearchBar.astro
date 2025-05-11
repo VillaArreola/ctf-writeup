@@ -2,21 +2,34 @@
 // components/SearchBar.astro
 export const hydrate = 'load';
 ---
-<section class="bg-gray-900 px-6 py-6 text-white" x-data>
-  <label for="search" class="block text-lg font-semibold mb-2">🔍 Buscar retos o técnicas</label>
+<section class="bg-black px-6 py-6 text-white" x-data>
+  <label for="search" class="block text-lg font-semibold mb-2">🔍 Buscar Máquinas o técnicas</label>
+  <div class="relative">
+    <input
+      id="search"
+      type="text"
+      x-model="$store.search.query"
+      placeholder="Ej: snmp, hydra, reverse shell..."
+      class="w-full p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:ring focus:ring-cyan-400 pr-10"
+    />
   
-  <input
-    id="search"
-    type="text"
-    x-model="$store.search.query"
-    placeholder="Ej: snmp, hydra, reverse shell..."
-    class="w-full p-3 rounded bg-black text-white border border-gray-700 focus:outline-none focus:ring focus:ring-cyan-400"
-  />
+    <!-- Botón CLEAR -->
+    <button
+      type="button"
+      x-show="$store.search.query"
+      @click="$store.search.query = ''"
+      class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white text-sm"
+      title="Limpiar búsqueda"
+    >
+       <span class="text-md text-white" x-show="$store.search.query">Clear</span>
+    </button>
+  </div>
+  
 
   <div class="mt-4 text-sm text-gray-400">
-    <p class="mb-1">Ejemplos rápidos:</p>
+    <p class="mb-1">Búsqueda rápida:</p>
     <div class="flex flex-wrap gap-3">
-      <template x-for="ejemplo in ['HTB', 'THM', 'nmap', 'hydra', 'SQLi', 'reverse shell', 'XSS']">
+      <template x-for="ejemplo in ['HTB', 'THM', 'nmap', 'SQLi', 'reverse shell', 'XSS', 'LFI', 'crackmapexec', 'dirb', 'burpsuite', 'gobuster', 'wfuzz', 'enum4linux', 'kerberoasting']" :key="ejemplo">
         <button
           type="button"
           @click="$store.search.query = ejemplo"
@@ -27,3 +40,5 @@ export const hydrate = 'load';
     </div>
   </div>
 </section>
+
+  
