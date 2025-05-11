@@ -2,9 +2,13 @@
 title: "TryHack3M: Bricks"
 platform: "HTB"
 publishedAt: 2025-05-22
+cover: "/images/ctf/bricks-heistt.webp"
 ---
 
 ---
+
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e19dbac-6f69-4b8e-8f73-8ef638bf2a2c/8415f495-a0a4-4a8d-b258-ce28be57dfa6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466TVF5HTBT%2F20250511%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250511T034514Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAsaCXVzLXdlc3QtMiJGMEQCID%2F59gd8NvDCvqp3QP8dsqLBIRg4m8JY3cp9OIXYUJ8tAiAwLRy39eVS%2FwglTpFiKV18ayfQmx3xG55NmbMYGgm3aCqIBAi0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMYSYK7Phq%2BezAYkP1KtwDljf99NUwHxw5G%2FukvJ9xGpfKF9vxfEaxdR3JKCtarL0tcQpTwEOww9qlwK%2BG69NjgZojHMUkBjHICsSFzAgLwpjWrITt58GikeJvCZTOtOdpUjFOpcQ7fSGOVhIKNuajpmkbb0XdniqM9Yfzbq4XXZw9hnM7B07g4z9wGbK1rZX%2FJN9lgT2bskOFLANCC25K3ROdyJIeVmFDLvLIUwu9qp7Ov9LivUUQaruydIPVzn8f2%2FSA8roUgDBQTbcuzoj4FjZyj930KSxVSPrt%2BzVXv4ogKbkpLpafqW7%2FsE46iJxoLkJOv3yx1M%2FDfKXrIjKsPnO4EV%2BjtedEBvFZ%2BBlkepa7tfwf8oPiT%2BKjNCie4c8M07yDKrSrOyJI9BSCJddwgWi2vVagq3FgdZZNUJUQx7NU90fnd61ADsW8CQ3AJFc%2F2bN1J9XlRkxCtfa3%2FMNXl7cPzLO1oUC0Eb0imxqIRABqbZVpXEuntuNh70Pwud4mStbnOowApM9atce6q1f3paSpFhui74sIehstoPbe3AS%2BmGcBn3RXSE5UsURZGDENmmwBruKqzx9tqyYegZS7AMxqGsNA0PYdI4OaJ8Ptr70qlXQ7CFP60%2BHK5WwS2utRi8q2UJHtGHzMUR4wg6uAwQY6pgHaLSV1lvRjvraxmlxKz67IMa3gr1sXU7CBuqAS8iZ%2BLy8eP18wdVkSPIbeWYIpdo1D0f5agb4NQnoy3ZwUiiaoGoxpnk%2FrB8NTpK%2Be08uoRd6%2B0d%2BZRoqRF44HK6bMwiSvYDK8Ad8EXXyX8w%2BUd7C9TdaQE3kM%2F0jiOXqPTtaNaRYGb4LSTi0OG2pCM8xKXmSPdnAuqbNzL1ghMVJX7cY8UVksqy10&X-Amz-Signature=3823a3d28e805b5a1bfbdb1d229b68b01f7ad05a2a3ac120e498f15e8e5fa10e&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 # 🧱 Bricks Heist – TryHackMe (Write-up)

@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import PlatformLayout from '../../layouts/PlatformLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('ctf');
+  const platforms = Array.from(new Set(posts.map(post => post.data.platform.toLowerCase())));
+  return platforms.map(platform => ({ params: { platform } }));
+}
+
+const { platform } = Astro.params;
+const allPosts = await getCollection('ctf');
+const filtered = allPosts.filter(post => post.data.platform.toLowerCase() === platform);
+---
+
+<PlatformLayout posts={filtered} platform={platform} />

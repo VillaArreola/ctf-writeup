@@ -2,12 +2,16 @@
 title: "trikc"
 platform: "THM"
 publishedAt: 2025-05-09
+cover: "/images/ctf/bricks-heist.webp"
 ---
 
 ---
 
 
 # 🧱 TryHackMe – Bricks Heist | Write-up técnico
+
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/5e19dbac-6f69-4b8e-8f73-8ef638bf2a2c/8415f495-a0a4-4a8d-b258-ce28be57dfa6/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4666TCRUJRC%2F20250511%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250511T034514Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAsaCXVzLXdlc3QtMiJGMEQCIBBFful9ZtCg1w5BIy8U7fdpsiSnGWpZS8k4iUW8rXKsAiAyQ8oB56aJkwOUIsy2u8IjaeelTme2LjXOTTzrixAFDiqIBAi0%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDYzNzQyMzE4MzgwNSIMBuXNYd5ARAV8f66TKtwDyduNTi36c2lp%2Fgiow8sUbYtjZjqzPsR299%2Brx4RDw9%2BH9TyDrVEooWolvAL3sZyYhBKoa83bxqkSWrwwXkxY89LyNuQjWF3aItxsX6Bh8zUNlZ8jQY2pMXz6F1lmOC8x7V2XmSqKT2qJA81%2BqG6TMruV0nG%2F%2Bv4dZNJD59oUU%2F5%2FQYomW2tP8Hb1ZBvjHz6Zc6WS5Xvp1NKbiFm1n3%2FlIFRs3ov%2FotDm88yQ9Xvp7eWA7fHYB8rNZjCwro7byHl54cR3dwmyq1qm8OMoari1vXbAGqYlEU35x%2BvyDs8EbtlH2f9XVe5d%2BWv0bU5hTXUFc%2FUWSRV9eGBbOOqoYRglS61EqvzdeFTSV%2FbwYPegRNRG5IK0%2BCZb3xDm8dfFTkz3ym9UTI7oHDENSpYsU1F94EBck7YV%2Bw5UI6FMuiDBriElFmr2grqZj4HgdBBlrtznUZxxCUKIDqlTuxyp6Vbc5nvT9bIxYKSch7YjTyjFNcrSY261zujnT048fx4nn6wFTiGEX%2B1YiMcXa37c8AJatFKM0BnV9VNFaBR2eLf%2FTmmYOn6NcwTDHrRXcOhkdK0T9W80t2RCkbaImfVsXyO8MHgpvlvM9FNZ7G9Nap%2BWYmVjkQQCsavF%2Fdt6AUsw8JyAwQY6pgHhKwvZXw6NfUVNbBaBkVbJg6WuSnCgdTM2ehytJzoS9uo2pt%2Fs6b8Ue0pJH6lcfacA1k9Gxb6OPAylS5jfjmCkrrT4OEvypcaO5Ip11TOKSxqnhUhACWLTOqNdR0wgZEk6GKa2MxVlfcopYwnBzmjBNE3uKk%2FFVTKct5NpT8hEgOfn7jASj1gSRp%2B4M6SlVjvQfykBEz3kFT4Cd3RpMsH4XDr7fLlg&X-Amz-Signature=74bff9a88d5b09e6e5f049e89ee13deb31364ade97e2c4744744af7103a8e8c3&X-Amz-SignedHeaders=host&x-id=GetObject)
 
 
 En este reto de TryHackMe nos enfrentamos a un escenario en el que un sitio WordPress ha sido comprometido por un actor malicioso. Nuestra misión es investigar, identificar cómo se produjo el ataque, qué malware fue desplegado, y qué grupo está detrás.

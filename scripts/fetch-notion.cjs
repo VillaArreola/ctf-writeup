@@ -1,7 +1,9 @@
 const { Client } = require('@notionhq/client');
 const { NotionToMarkdown } = require('notion-to-md');
-const fs = require('fs/promises');
 const path = require('path');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const sharp = require('sharp');
+const fs = require('fs').promises;
 require('dotenv').config();
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
@@ -11,33 +13,47 @@ const CONTENT_DIR = path.join('src', 'content', 'ctf');
 const notion = new Client({ auth: NOTION_TOKEN });
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
+async function downloadAndConvertToWebP(url, slug) {
+  if (!url.startsWith('http')) return '';
+  const imgDir = path.join('public', 'images', 'ctf');
+  const outputPath = path.join(imgDir, `${slug}.webp`);
+
+  const exists = await fs.stat(outputPath).then(() => true).catch(() => false);
+  if (exists) return `/images/ctf/${slug}.webp`;
+
+  const res = await fetch(url);
+  if (!res.ok) return '';
+
+  const buffer = await res.arrayBuffer();
+  await fs.mkdir(imgDir, { recursive: true });
+
+  await sharp(Buffer.from(buffer))
+    .resize({ width: 800 })
+    .webp({ quality: 80 })
+    .toFile(outputPath);
+
+  return `/images/ctf/${slug}.webp`;
+}
+
 async function fetchWriteups() {
-  // 1. Consulta solo los posts publicados
-    const response = await notion.databases.query({
-  database_id: DATABASE_ID,
-  filter: {
-    and: [
-      {
-        property: 'Select', 
-        select: {
-          equals: 'Published',
+  const response = await notion.databases.query({
+    database_id: DATABASE_ID,
+    filter: {
+      and: [
+        {
+          property: 'Select',
+          select: { equals: 'Published' },
         },
-      },
-      {
-        property: 'Date',
-        date: {
-          is_not_empty: true,
+        {
+          property: 'Date',
+          date: { is_not_empty: true },
         },
-      },
-    ],
-  },
-});
+      ],
+    },
+  });
 
-
-
-  // 2. Extraer slugs válidos desde Notion
   const validSlugs = [];
-console.log(`📄 Entradas encontradas: ${response.results.length}\n`);
+
   for (const page of response.results) {
     try {
       const md = await n2m.pageToMarkdown(page.id);
@@ -45,24 +61,29 @@ console.log(`📄 Entradas encontradas: ${response.results.length}\n`);
 
       const titleField = page.properties.Title || page.properties.Name;
       const titleProp = titleField?.title;
-      const title = Array.isArray(titleProp) && titleProp.length > 0
-        ? titleProp[0].plain_text
-        : 'Sin título';
+      const title = Array.isArray(titleProp) && titleProp.length > 0 ? titleProp[0].plain_text : 'Sin título';
 
       const slug = page.properties.Slug?.rich_text?.[0]?.plain_text ?? null;
       if (!slug) continue;
 
-      validSlugs.push(slug); // ✅ Lo agregamos a la lista de slugs válidos
+      validSlugs.push(slug);
 
       const platform = page.properties.Platform?.select?.name ?? 'sin-plataforma';
       const date = new Date(page.properties.Date?.date?.start ?? '2025-01-01').toISOString();
 
+      const fileObj = page.properties["Files & media"]?.files?.[0];
+      const imageUrl = fileObj?.type === 'file'
+        ? fileObj.file.url
+        : fileObj?.external?.url ?? '';
+
+      const localImagePath = imageUrl ? await downloadAndConvertToWebP(imageUrl, slug) : '';
 
       const frontmatter = [
         '---',
         `title: "${title}"`,
         `platform: "${platform}"`,
         `publishedAt: ${date.split('T')[0]}`,
+        `cover: "${localImagePath}"`,
         '---\n',
       ].join('\n');
 
@@ -70,18 +91,16 @@ console.log(`📄 Entradas encontradas: ${response.results.length}\n`);
       await fs.writeFile(filePath, frontmatter + mdString.parent);
       console.log(`✅ ${slug}.md generado`);
     } catch (error) {
-      console.error(`❌ Error procesando entrada:`, error);
+      console.error(`❌ Error en "${page.id}":`, error.message);
     }
   }
 
-  // 3. Leer todos los archivos .md en el directorio
   const allFiles = await fs.readdir(CONTENT_DIR);
   const filesToDelete = allFiles.filter((file) => {
     const slug = file.replace('.md', '');
     return !validSlugs.includes(slug);
   });
 
-  // 4. Eliminar los que ya no están publicados
   for (const file of filesToDelete) {
     const filePath = path.join(CONTENT_DIR, file);
     await fs.unlink(filePath);

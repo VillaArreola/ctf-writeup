@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "update-site": "node scripts/fetch-notion.cjs && astro build"
   },
   "dependencies": {
     "@fontsource/fira-code": "^5.2.6",
@@ -15,7 +16,8 @@
     "@tailwindcss/vite": "^4.1.6",
     "astro": "^5.7.12",
     "dotenv": "^16.5.0",
-    "notion-to-md": "^3.1.8"
+    "notion-to-md": "^3.1.8",
+    "sharp": "^0.34.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.6",
