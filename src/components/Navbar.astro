@@ -1,77 +1,77 @@
----
-// Header.astro
----
-
-<header class="relative bg-black text-white border-b border-gray-800">
+<!-- Nuevo menú responsive mejorado -->
+<header class="relative bg-black text-white border-b border-gray-800" x-data="{ open: false }">
   <!-- Barra superior -->
-  <div class="relative z-10">
-    <div class="flex items-center justify-between w-full px-6 py-4">
-      <!-- Izquierda: Logo + Menú horizontal -->
-      <div class="flex items-center space-x-6">
-        <!-- Logo -->
-        <div class="flex ml-8 items-center space-x-2 text-cyan-400 text-2xl font-bold">
-          <span>VA</span>
-          <span class="text-white">Writeups</span>
-        </div>
-       
-    
-        <!-- Menú horizontal (visible en sm+) -->
-        <nav class="hidden ml-8 sm:flex space-x-6 text-sm text-cyan-400">
-          <div class="h-full w-px bg-white mx-4"></div>
-          <a href="/" class="hover:underline">Home</a>
-          <a href="/ctf/htb" class="hover:underline">HTB</a>
-          <a href="/ctf/thm" class="hover:underline">THM</a>
-        </nav>
-      </div>
-    
-      <!-- Derecha: Botón ☰ (solo visible en sm) -->
-      <button @click="open = !open" class="sm:hidden text-cyan-400 focus:outline-none">
-        <template x-if="!open">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </template>
-        <template x-if="open">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </template>
-      </button>
+  <div class="flex items-center justify-between w-full px-6 py-4">
+    <!-- Logo -->
+    <div class="flex items-center space-x-2 text-cyan-400 text-2xl font-bold">
+      <span>VA</span>
+      <span class="text-white">Writeups</span>
     </div>
-    
 
-  <!-- Overlay (solo en sm) -->
+    <!-- Menú horizontal (solo visible en sm+) -->
+    <nav class="hidden sm:flex items-center space-x-6 text-sm text-cyan-400">
+      <div class="h-5 w-px bg-gray-500"></div>
+      <a href="/" class="hover:underline">Home</a>
+      <a href="/ctf/htb" class="hover:underline">HTB</a>
+      <a href="/ctf/thm" class="hover:underline">THM</a>
+    </nav>
+
+    <!-- Botón menú ☰ para mobile -->
+    <button @click="open = !open" class="sm:hidden text-cyan-400 focus:outline-none">
+      <template x-if="!open">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </template>
+      <template x-if="open">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </template>
+    </button>
+  </div>
+
+  <!-- Overlay -->
   <div
     x-show="open"
-    @click="open = false"
     x-transition.opacity
-    class="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm sm:hidden"
+    x-cloak
+    @click="open = false"
+    class="fixed inset-0 top-[4.5rem] backdrop-blur-sm z-40 sm:hidden"
   ></div>
 
-  <!-- Panel lateral derecho (solo en sm) -->
-  <div
+  <!-- Menú lateral derecho compacto para móviles -->
+  <aside
     x-show="open"
-    x-transition:enter="transition transform ease-out duration-300"
+    x-cloak
+    x-transition:enter="transition ease-out duration-300"
     x-transition:enter-start="translate-x-full"
     x-transition:enter-end="translate-x-0"
-    x-transition:leave="transition transform ease-in duration-200"
+    x-transition:leave="transition ease-in duration-200"
     x-transition:leave-start="translate-x-0"
     x-transition:leave-end="translate-x-full"
-    class="fixed top-0 right-0 w-2/3 h-full overflow-y-auto backdrop-blur-md bg-black/70 border-l border-cyan-600 z-50 px-6 py-6 flex flex-col space-y-4 text-cyan-400 text-sm sm:hidden shadow-lg shadow-cyan-900/20"
+    class="fixed top-[3.5rem] right-0 h-full w-[30vw] bg-black/90 border-l-2 border-cyan-500 z-50 p-4 text-sm sm:hidden flex flex-col space-y-4"
   >
-    <!-- Encabezado del panel -->
-    <div class="flex justify-between items-center mb-4">
-      <span class="text-white text-lg font-bold">Menú</span>
-      <button @click="open = false" class="text-white text-2xl">&times;</button>
+    <div class="flex justify-between items-center mb-2">
     </div>
+    <a @click="open = false" href="/" class="hover:underline text-cyan-400">🏠 Home</a>
+    <a @click="open = false" href="/ctf/htb" class="hover:underline text-cyan-400">🧠 HTB</a>
+    <a @click="open = false" href="/ctf/thm" class="hover:underline text-cyan-400">🔍 THM</a>
+    <div class="border-t border-cyan-700 pt-2 mt-2 text-gray-400">
+      <p class="text-xs mb-1">Contacto</p>
+      <a href="mailto:contacto@villaarreola.com" class="block text-cyan-400 text-xs hover:underline">✉ contacto@villaarreola.com</a>
+      <div class="flex gap-3 mt-2">
+        <a href="https://twitter.com/tu_usuario" target="_blank" class="hover:text-cyan-300">🐦</a>
+        <a href="https://github.com/tu_usuario" target="_blank" class="hover:text-cyan-300">💻</a>
+        <a href="https://linkedin.com/in/tu_usuario" target="_blank" class="hover:text-cyan-300">💼</a>
+      </div>
+    </div>
+  </aside>
 
-    <!-- Enlaces con íconos -->
-    <a @click="open = false" href="/" class="flex items-center gap-2 hover:underline">🏠 Home</a>
-    <a @click="open = false" href="/ctf/htb" class="flex items-center gap-2 hover:underline">🧠 HTB</a>
-    <a @click="open = false" href="/ctf/thm" class="flex items-center gap-2 hover:underline">🔍 THM</a>
-  </div>
+  <!-- Menú inferior flotante tipo app (visible solo en móviles) -->
+  <nav class="fixed bottom-0 left-0 right-0 flex justify-around bg-black border-t border-cyan-800 py-2 sm:hidden z-50">
+    <a href="/" class="text-white text-xs text-center"><span class="block text-lg">🏠</span>Home</a>
+    <a href="/ctf/htb" class="text-cyan-400 text-xs text-center"><span class="block text-lg">🧠</span>HTB</a>
+    <a href="/ctf/thm" class="text-cyan-400 text-xs text-center"><span class="block text-lg">🔍</span>THM</a>
+  </nav>
 </header>

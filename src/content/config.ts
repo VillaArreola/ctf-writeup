@@ -5,6 +5,8 @@ const ctf = defineCollection({
     title: z.string(),
     platform: z.string(),
     publishedAt: z.date(),
+    cover: z.string().optional(),   // 👈 esto debe estar
+    preview: z.string().optional(), // si también estás usando `preview`
   }),
 });
 

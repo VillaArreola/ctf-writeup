@@ -14,6 +14,7 @@ const simplified = ctfPosts.map((post) => ({
   date: new Date(post.data.publishedAt).toLocaleDateString('es-MX'),
   cover: post.data.cover ?? `/images/default-cover.jpg`,
   preview: post.data.preview ?? '',
+  tags: post.data.tags?.join(' ') ?? ''
 }));
 
 const postsJson = JSON.stringify(simplified);
@@ -25,7 +26,6 @@ const postsJson = JSON.stringify(simplified);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VA Writeups</title>
 
-    <!-- Alpine desde Skypack -->
     <script type="module">
       import Alpine from 'https://cdn.skypack.dev/alpinejs';
       window.Alpine = Alpine;
@@ -46,23 +46,45 @@ const postsJson = JSON.stringify(simplified);
           init() {
             const raw = document.getElementById('posts-data')?.textContent;
             this.posts = raw ? JSON.parse(raw) : [];
-            console.log('✅ Posts cargados desde index:', this.posts);
           }
         })"
       >
-        <h2 class="text-3xl font-bold mb-6 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
+        <h2 class="text-3xl font-bold mb-4 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
+
+        <div class="flex flex-wrap gap-3 items-center mb-6">
+          <button @click="search.query = 'HTB'" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3 py-1 rounded-full">HTB</button>
+          <button @click="search.query = 'THM'" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3 py-1 rounded-full">THM</button>
+          <button @click="search.query = 'reverse shell'" class="bg-cyan-700 hover:bg-cyan-600 text-white px-3 py-1 rounded-full">reverse shell</button>
+        </div>
 
         <div class="grid grid-cols-8 gap-6">
           <template x-for="(post, i) in posts" :key="post.slug">
             <a
-              x-show="`${post.title} ${post.platform}`.toLowerCase().includes(search.query.toLowerCase())"
+              :href="`/ctf/${post.slug}`"
               class="group relative"
               :class="{
                 'col-span-5': i === 0 || i === 3,
                 'col-span-3': i === 1 || i === 2,
                 'col-span-4': i > 3
               }"
-              :href="`/ctf/${post.slug}`"
+              x-show="(() => {
+                const terms = search.query
+                  .toLowerCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .trim()
+                  .split(/\s+/);
+              
+                const content = `${post.title} ${post.platform} ${post.preview} ${post.tags || ''}`
+                  .toLowerCase()
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '');
+              
+                return terms.some(term => content.includes(term));
+              })()"
+              
+              
+              
             >
               <div class="bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400">
                 <img
@@ -71,16 +93,13 @@ const postsJson = JSON.stringify(simplified);
                   @error="event.target.src = '/images/default-cover.jpg'"
                   class="w-full h-40 object-cover rounded mb-4"
                 />
-
                 <div class="mb-4">
                   <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition" x-text="post.title"></h3>
                   <p class="text-sm text-gray-400">
                     <span x-text="post.platform"></span> — <span x-text="post.date"></span>
                   </p>
                 </div>
-
-                <div class="text-sm text-gray-500 leading-relaxed" x-text="post.preview || 'Este writeup aún no tiene descripción. 🚧'">
-                </div>
+                <div class="text-sm text-gray-500 leading-relaxed" x-text="post.preview || 'Este writeup aún no tiene descripción. 🚧'"></div>
               </div>
             </a>
           </template>
@@ -89,16 +108,31 @@ const postsJson = JSON.stringify(simplified);
         <!-- Mensaje si no hay resultados -->
         <p
           class="text-sm text-red-400 mt-6"
-          x-show="!posts.some(p => `${p.title} ${p.platform}`.toLowerCase().includes(search.query.toLowerCase())) && search.query"
+          x-show="(() => {
+            const terms = search.query
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .trim()
+              .split(/\s+/)
+              .filter(t => t.length > 1);
+
+            return terms.length && !posts.some(post => {
+              const content = `${post.title} ${post.platform} ${post.preview} ${post.tags || ''}`
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+
+              return terms.some(term => content.includes(term));
+            });
+          })()"
         >
           😢 No se encontraron resultados para "<span x-text="search.query"></span>".
         </p>
       </section>
     </main>
 
-    <!-- Inyección segura del JSON -->
     <script type="application/json" id="posts-data" set:html={postsJson}></script>
-
     <Footer />
   </body>
 </html>
