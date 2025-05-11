@@ -3,6 +3,7 @@ title: "TryHack3M: Bricks"
 platform: "HTB"
 publishedAt: 2025-05-22
 cover: "/images/ctf/nota3-cover.webp"
+preview: "Explotamos un sitio WordPress vulnerable con CVE-2024-25600"
 ---
 
 ---

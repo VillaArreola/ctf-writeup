@@ -3,6 +3,7 @@ title: "asfasf"
 platform: "HTB"
 publishedAt: 2025-05-29
 cover: "/images/ctf/nota5-cover.webp"
+preview: "Explotamos un sitio WordPress vulnerable con CVE-2024-25600"
 ---
 
 ![image.png](/images/ctf/nota5-0.webp)

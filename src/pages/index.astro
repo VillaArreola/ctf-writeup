@@ -1,13 +1,22 @@
 ---
-// index.astro
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 import SearchBar from '../components/SearchBar.astro';
 import { getCollection } from 'astro:content';
-import Footer from '../components/Footer.astro';
 
 const ctfPosts = await getCollection('ctf');
-const labPosts = await getCollection('labs');
+
+const simplified = ctfPosts.map((post) => ({
+  title: post.data.title,
+  platform: post.data.platform,
+  slug: post.slug,
+  date: new Date(post.data.publishedAt).toLocaleDateString('es-MX'),
+  cover: post.data.cover ?? `/images/default-cover.jpg`,
+  preview: post.data.preview ?? '',
+}));
+
+const postsJson = JSON.stringify(simplified);
 ---
 
 <html lang="es">
@@ -15,59 +24,81 @@ const labPosts = await getCollection('labs');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VA Writeups</title>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Alpine desde Skypack -->
+    <script type="module">
+      import Alpine from 'https://cdn.skypack.dev/alpinejs';
+      window.Alpine = Alpine;
+      Alpine.store('search', { query: '' });
+      Alpine.start();
+    </script>
   </head>
 
-  <!-- Alpine.js controla todo el estado desde aquí -->
-  <body x-data="{ open: false }" class="bg-black text-white font-sans overflow-x-hidden">
+  <body class="bg-black text-white font-sans">
+    <Navbar />
+    <SearchBar />
 
-    <!-- CONTENIDO QUE SE MUEVE AL ABRIR MENÚ -->
-    <div :class="{ 'translate-x-[-4%]': open }" class="transition-transform duration-300 ease-in-out relative z-10">
+    <main class="max-w-7xl mx-auto px-6 py-10">
+      <section
+        x-data="() => ({
+          posts: [],
+          search: Alpine.store('search'),
+          init() {
+            const raw = document.getElementById('posts-data')?.textContent;
+            this.posts = raw ? JSON.parse(raw) : [];
+            console.log('✅ Posts cargados desde index:', this.posts);
+          }
+        })"
+      >
+        <h2 class="text-3xl font-bold mb-6 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
 
-      
-      <Navbar />
-      <SearchBar />
+        <div class="grid grid-cols-8 gap-6">
+          <template x-for="(post, i) in posts" :key="post.slug">
+            <a
+              x-show="`${post.title} ${post.platform}`.toLowerCase().includes(search.query.toLowerCase())"
+              class="group relative"
+              :class="{
+                'col-span-5': i === 0 || i === 3,
+                'col-span-3': i === 1 || i === 2,
+                'col-span-4': i > 3
+              }"
+              :href="`/ctf/${post.slug}`"
+            >
+              <div class="bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400">
+                <img
+                  :src="post.cover"
+                  :alt="`Portada de ${post.title}`"
+                  @error="event.target.src = '/images/default-cover.jpg'"
+                  class="w-full h-40 object-cover rounded mb-4"
+                />
 
-      <main class="max-w-7xl mx-auto px-6 py-10">
-        <div class="grid md:grid-cols-2 gap-10">
-          <!-- Sección de CTFs -->
-          <section>
-            <h2 class="text-3xl font-bold mb-4 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
-            <ul class="space-y-6">
-              {ctfPosts.map((post) => (
-                <li class="border-b border-gray-700 pb-2">
-                  <a class="text-cyan-400 text-xl hover:underline" href={`/ctf/${post.slug}`}>
-                    {post.data.title}
-                  </a>
+                <div class="mb-4">
+                  <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition" x-text="post.title"></h3>
                   <p class="text-sm text-gray-400">
-                    {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
+                    <span x-text="post.platform"></span> — <span x-text="post.date"></span>
                   </p>
-                </li>
-              ))}
-            </ul>
-          </section>
+                </div>
 
-          <!-- Sección de Labs -->
-          <section>
-            <h2 class="text-3xl font-bold mb-4 border-b border-yellow-400 pb-2">🧪 Labs</h2>
-            <ul class="space-y-6">
-              {labPosts.map((post) => (
-                <li class="border-b border-gray-700 pb-2">
-                  <a class="text-yellow-400 text-xl hover:underline" href={`/labs/${post.slug}`}>
-                    {post.data.title}
-                  </a>
-                  <p class="text-sm text-gray-400">
-                    {post.data.tags?.join(', ') ?? 'Sin tags'}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </section>
+                <div class="text-sm text-gray-500 leading-relaxed" x-text="post.preview || 'Este writeup aún no tiene descripción. 🚧'">
+                </div>
+              </div>
+            </a>
+          </template>
         </div>
-      </main>
 
-      <Footer />
-    </div>
+        <!-- Mensaje si no hay resultados -->
+        <p
+          class="text-sm text-red-400 mt-6"
+          x-show="!posts.some(p => `${p.title} ${p.platform}`.toLowerCase().includes(search.query.toLowerCase())) && search.query"
+        >
+          😢 No se encontraron resultados para "<span x-text="search.query"></span>".
+        </p>
+      </section>
+    </main>
 
+    <!-- Inyección segura del JSON -->
+    <script type="application/json" id="posts-data" set:html={postsJson}></script>
+
+    <Footer />
   </body>
 </html>
