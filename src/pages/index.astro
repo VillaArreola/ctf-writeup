@@ -1,9 +1,11 @@
 ---
+// index.astro
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import SearchBar from '../components/SearchBar.astro';
 import { getCollection } from 'astro:content';
 import Footer from '../components/Footer.astro';
+
 const ctfPosts = await getCollection('ctf');
 const labPosts = await getCollection('labs');
 ---
@@ -13,51 +15,59 @@ const labPosts = await getCollection('labs');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VA Writeups</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <body class="bg-black text-white font-sans">
-    <Navbar />
 
+  <!-- Alpine.js controla todo el estado desde aquí -->
+  <body x-data="{ open: false }" class="bg-black text-white font-sans overflow-x-hidden">
 
-    <SearchBar />
+    <!-- CONTENIDO QUE SE MUEVE AL ABRIR MENÚ -->
+    <div :class="{ 'translate-x-[-4%]': open }" class="transition-transform duration-300 ease-in-out relative z-10">
 
+      
+      <Navbar />
+      <SearchBar />
 
-    <main class="max-w-7xl mx-auto px-6 py-10">
-      <div class="grid md:grid-cols-2 gap-10">
-        <!-- Sección de CTFs -->
-        <section>
-          <h2 class="text-3xl font-bold mb-4 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
-          <ul class="space-y-6">
-            {ctfPosts.map((post) => (
-              <li class="border-b border-gray-700 pb-2">
-                <a class="text-cyan-400 text-xl hover:underline" href={`/ctf/${post.slug}`}>
-                  {post.data.title}
-                </a>
-                <p class="text-sm text-gray-400">
-                  {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
+      <main class="max-w-7xl mx-auto px-6 py-10">
+        <div class="grid md:grid-cols-2 gap-10">
+          <!-- Sección de CTFs -->
+          <section>
+            <h2 class="text-3xl font-bold mb-4 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
+            <ul class="space-y-6">
+              {ctfPosts.map((post) => (
+                <li class="border-b border-gray-700 pb-2">
+                  <a class="text-cyan-400 text-xl hover:underline" href={`/ctf/${post.slug}`}>
+                    {post.data.title}
+                  </a>
+                  <p class="text-sm text-gray-400">
+                    {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        <!-- Sección de Labs -->
-        <section>
-          <h2 class="text-3xl font-bold mb-4 border-b border-yellow-400 pb-2">🧪 Labs</h2>
-          <ul class="space-y-6">
-            {labPosts.map((post) => (
-              <li class="border-b border-gray-700 pb-2">
-                <a class="text-yellow-400 text-xl hover:underline" href={`/labs/${post.slug}`}>
-                  {post.data.title}
-                </a>
-                <p class="text-sm text-gray-400">
-                  {post.data.tags?.join(', ') ?? 'Sin tags'}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    </main>
+          <!-- Sección de Labs -->
+          <section>
+            <h2 class="text-3xl font-bold mb-4 border-b border-yellow-400 pb-2">🧪 Labs</h2>
+            <ul class="space-y-6">
+              {labPosts.map((post) => (
+                <li class="border-b border-gray-700 pb-2">
+                  <a class="text-yellow-400 text-xl hover:underline" href={`/labs/${post.slug}`}>
+                    {post.data.title}
+                  </a>
+                  <p class="text-sm text-gray-400">
+                    {post.data.tags?.join(', ') ?? 'Sin tags'}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+
   </body>
-  <Footer />
 </html>

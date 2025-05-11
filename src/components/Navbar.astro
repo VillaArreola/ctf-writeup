@@ -1,9 +1,77 @@
-<header class="flex items-center justify-between px-6 py-4 border-b border-gray-800 bg-black text-white">
-  <div class="flex items-center space-x-2 text-cyan-400 text-xl font-bold">
-    <span>VA</span>
-    <span class="text-white">Writeups</span>
+---
+// Header.astro
+---
+
+<header class="relative bg-black text-white border-b border-gray-800">
+  <!-- Barra superior -->
+  <div class="relative z-10">
+    <div class="flex items-center justify-between w-full px-6 py-4">
+      <!-- Izquierda: Logo + Menú horizontal -->
+      <div class="flex items-center space-x-6">
+        <!-- Logo -->
+        <div class="flex ml-8 items-center space-x-2 text-cyan-400 text-2xl font-bold">
+          <span>VA</span>
+          <span class="text-white">Writeups</span>
+        </div>
+       
+    
+        <!-- Menú horizontal (visible en sm+) -->
+        <nav class="hidden ml-8 sm:flex space-x-6 text-sm text-cyan-400">
+          <div class="h-full w-px bg-white mx-4"></div>
+          <a href="/" class="hover:underline">Home</a>
+          <a href="/ctf/htb" class="hover:underline">HTB</a>
+          <a href="/ctf/thm" class="hover:underline">THM</a>
+        </nav>
+      </div>
+    
+      <!-- Derecha: Botón ☰ (solo visible en sm) -->
+      <button @click="open = !open" class="sm:hidden text-cyan-400 focus:outline-none">
+        <template x-if="!open">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </template>
+        <template x-if="open">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </template>
+      </button>
+    </div>
+    
+
+  <!-- Overlay (solo en sm) -->
+  <div
+    x-show="open"
+    @click="open = false"
+    x-transition.opacity
+    class="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm sm:hidden"
+  ></div>
+
+  <!-- Panel lateral derecho (solo en sm) -->
+  <div
+    x-show="open"
+    x-transition:enter="transition transform ease-out duration-300"
+    x-transition:enter-start="translate-x-full"
+    x-transition:enter-end="translate-x-0"
+    x-transition:leave="transition transform ease-in duration-200"
+    x-transition:leave-start="translate-x-0"
+    x-transition:leave-end="translate-x-full"
+    class="fixed top-0 right-0 w-2/3 h-full overflow-y-auto backdrop-blur-md bg-black/70 border-l border-cyan-600 z-50 px-6 py-6 flex flex-col space-y-4 text-cyan-400 text-sm sm:hidden shadow-lg shadow-cyan-900/20"
+  >
+    <!-- Encabezado del panel -->
+    <div class="flex justify-between items-center mb-4">
+      <span class="text-white text-lg font-bold">Menú</span>
+      <button @click="open = false" class="text-white text-2xl">&times;</button>
+    </div>
+
+    <!-- Enlaces con íconos -->
+    <a @click="open = false" href="/" class="flex items-center gap-2 hover:underline">🏠 Home</a>
+    <a @click="open = false" href="/ctf/htb" class="flex items-center gap-2 hover:underline">🧠 HTB</a>
+    <a @click="open = false" href="/ctf/thm" class="flex items-center gap-2 hover:underline">🔍 THM</a>
   </div>
-  <nav>
-    <a href="/" class="text-sm text-cyan-400 hover:underline">Home</a>
-  </nav>
 </header>
