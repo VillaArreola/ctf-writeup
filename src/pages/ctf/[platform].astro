@@ -10,7 +10,7 @@ export async function getStaticPaths() {
 
 const { platform } = Astro.params;
 const allPosts = await getCollection('ctf');
-const filtered = allPosts.filter(post => post.data.platform.toLowerCase() === platform);
+const filtered = allPosts.filter(post => post.data.platform?.toLowerCase() === platform);
 ---
 
 <PlatformLayout posts={filtered} platform={platform} />

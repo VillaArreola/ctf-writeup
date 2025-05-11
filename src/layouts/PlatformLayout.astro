@@ -20,26 +20,37 @@ import Footer from '../components/Footer.astro';
       {posts.length > 0 ? (
         <div class="grid grid-cols-8 gap-6">
           {posts.map((post, i) => {
-            let colSpan = 'col-span-4';
-            if (i === 0) colSpan = 'col-span-5';
-            else if (i === 1) colSpan = 'col-span-3';
-            else if (i === 2) colSpan = 'col-span-3';
-            else if (i === 3) colSpan = 'col-span-5';
+            const colSpan =
+              i === 0 ? 'col-span-5' :
+              i === 1 ? 'col-span-3' :
+              i === 2 ? 'col-span-3' :
+              i === 3 ? 'col-span-5' :
+              'col-span-4';
 
             return (
               <a
                 href={`/ctf/${post.slug}`}
                 class={`group relative ${colSpan} bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400`}
               >
-                {post.data.cover && (
-  <img src={post.data.cover} alt="Preview" class="w-full h-40 object-cover rounded mb-4" />
-)}
-<div class="mb-4">
-                  <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition">{post.data.title}</h3>
+                <img
+                src={`/images/ctf/${post.slug}-cover.webp`}
+                alt={`Portada de ${post.data.title}`}
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = '/images/default-cover.jpg';
+                }}
+                class="w-full h-40 object-cover rounded mb-4"
+              />
+
+                <div class="mb-4">
+                  <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition">
+                    {post.data.title}
+                  </h3>
                   <p class="text-sm text-gray-400">
                     {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
                   </p>
                 </div>
+
                 <div class="text-sm text-gray-500 leading-relaxed">
                   {post.data.preview || 'Este writeup aún no tiene descripción. 🚧'}
                 </div>
@@ -49,8 +60,15 @@ import Footer from '../components/Footer.astro';
         </div>
       ) : (
         <div class="text-center py-10">
-          <p class="text-lg text-gray-400 mb-4">No hay writeups publicados aún para esta plataforma.</p>
-          <a href="/" class="inline-block px-5 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-500 transition">← Volver al inicio</a>
+          <p class="text-lg text-gray-400 mb-4">
+            No hay writeups publicados aún para esta plataforma.
+          </p>
+          <a
+            href="/"
+            class="inline-block px-5 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-500 transition"
+          >
+            ← Volver al inicio
+          </a>
         </div>
       )}
     </main>
