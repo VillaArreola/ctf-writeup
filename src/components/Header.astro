@@ -1,0 +1,27 @@
+---
+const { frontmatter } = Astro.props;
+---
+
+<header class="flex justify-start items-center px-6 py-4 border-b border-gray-800 space-x-4">
+
+  <div class="text-xl font-bold text-cyan-400">
+    <a href="/">VA</a>
+  </div>
+  <nav class="space-x-4 text-sm">
+    <a href="/" class="hover:underline text-cyan-400">Home</a>
+    {frontmatter?.platform && (
+      <>
+        <span>/</span>
+        <a href={`/ctf/${frontmatter.platform.toLowerCase()}`} class="hover:underline text-cyan-400">
+          {frontmatter.platform}
+        </a>
+      </>
+    )}
+    {frontmatter?.title && (
+      <>
+        <span>/</span>
+        <span class="text-gray-400">{frontmatter.title}</span>
+      </>
+    )}
+  </nav>
+</header>

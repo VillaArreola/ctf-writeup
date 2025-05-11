@@ -1,37 +1,63 @@
 ---
-import { getCollection } from 'astro:content';
 import '../styles/global.css';
-
-
-const posts = await getCollection('ctf');
+import Navbar from '../components/Navbar.astro';
+import SearchBar from '../components/SearchBar.astro';
+import { getCollection } from 'astro:content';
+import Footer from '../components/Footer.astro';
+const ctfPosts = await getCollection('ctf');
+const labPosts = await getCollection('labs');
 ---
-
 
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>CTF Writeups</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VA Writeups</title>
   </head>
-  <body class="bg-black text-white font-sans px-4 py-8">
-    <main class="max-w-3xl mx-auto">
-      <h1 class="text-4xl font-bold mb-6">🧠 CTF Writeups</h1>
-      
+  <body class="bg-black text-white font-sans">
+    <Navbar />
 
-      <ul class="space-y-6">
-        {posts.map((post) => (
-          <li class="border-b border-gray-700 pb-2">
-            <a class="text-cyan-400 text-xl hover:underline" href={`/ctf/${post.slug}`}>
-              {post.data.title}
-            </a>  
-            <p class="text-sm text-gray-400">
-              {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
-            </p>
-          </li>
-        ))}
-      </ul>
+
+    <SearchBar />
+
+
+    <main class="max-w-7xl mx-auto px-6 py-10">
+      <div class="grid md:grid-cols-2 gap-10">
+        <!-- Sección de CTFs -->
+        <section>
+          <h2 class="text-3xl font-bold mb-4 border-b border-cyan-400 pb-2">🧠 CTF Writeups</h2>
+          <ul class="space-y-6">
+            {ctfPosts.map((post) => (
+              <li class="border-b border-gray-700 pb-2">
+                <a class="text-cyan-400 text-xl hover:underline" href={`/ctf/${post.slug}`}>
+                  {post.data.title}
+                </a>
+                <p class="text-sm text-gray-400">
+                  {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <!-- Sección de Labs -->
+        <section>
+          <h2 class="text-3xl font-bold mb-4 border-b border-yellow-400 pb-2">🧪 Labs</h2>
+          <ul class="space-y-6">
+            {labPosts.map((post) => (
+              <li class="border-b border-gray-700 pb-2">
+                <a class="text-yellow-400 text-xl hover:underline" href={`/labs/${post.slug}`}>
+                  {post.data.title}
+                </a>
+                <p class="text-sm text-gray-400">
+                  {post.data.tags?.join(', ') ?? 'Sin tags'}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </main>
-      
   </body>
-
-
+  <Footer />
 </html>

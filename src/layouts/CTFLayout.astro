@@ -2,6 +2,13 @@
 // Este layout recibe "Content" y "post" desde la página [slug].astro
 const { Content, frontmatter } = Astro.props;
 import '../styles/global.css';
+
+import Header from '../components/Header.astro';
+import SidebarCTF from '../components/SidebarCTF.astro';
+import Footer from '../components/Footer.astro';
+
+
+
 ---
 
 <html lang="es">
@@ -11,33 +18,14 @@ import '../styles/global.css';
     <title>{frontmatter.title}</title>
   </head>
   <body class="bg-black text-white font-sans">
-    <header class="flex justify-between items-center px-6 py-4 border-b border-gray-800">
-      <div class="text-xl font-bold">VA</div>
-      <nav class="space-x-4">
-        <a href="/" class="hover:underline text-cyan-400">Home</a>
-        <span>/</span>
-        <a href={`/ctf/${frontmatter.platform.toLowerCase()}`} class="hover:underline text-cyan-400">
-          {frontmatter.platform}
-        </a>
-        <span>/</span>
-        <span class="text-gray-400">{frontmatter.title}</span>
-      </nav>
-    </header>
-  
+   
+  <Header frontmatter={frontmatter} />
 
 
     <div class="flex max-w-7xl mx-auto py-10 px-6">
       <!-- Índice lateral -->
-      <aside class="w-1/5 pr-4 sticky top-20 text-sm text-gray-400">
-        <ul class="space-y-2">
-          <li><a href="#descripcion" class="hover:text-cyan-400">🧠 Descripción</a></li>
-          <li><a href="#recon" class="hover:text-cyan-400">🔍 Reconocimiento</a></li>
-          <li><a href="#vulns" class="hover:text-cyan-400">⚠️ Vulnerabilidades</a></li>
-          <li><a href="#exploits" class="hover:text-cyan-400">💥 Explotación</a></li>
-          <li><a href="#escalada" class="hover:text-cyan-400">📈 Escalada</a></li>
-        </ul>
-      </aside>
-
+  
+    <SidebarCTF />
       <!-- Contenido principal -->
       <main class="w-4/5 prose prose-invert max-w-none">
         <Content />
@@ -58,13 +46,7 @@ import '../styles/global.css';
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-800 py-6 text-center text-sm text-gray-500">
-      <div class="space-x-6">
-        <a href="/redes" class="hover:underline">Redes</a>
-        <a href="/objetivo" class="hover:underline">Objetivo</a>
-        <a href="/blog" class="hover:underline">Blog</a>
-        <a href="/contacto" class="hover:underline">Contacto</a>
-      </div>
-    </footer>
+    
+    <Footer />
   </body>
 </html>
