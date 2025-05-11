@@ -1,47 +1,69 @@
-# Astro Starter Kit: Minimal
+# Notion to Astro Writeups
 
-```sh
-npm create astro@latest -- --template minimal
+> Crea tu blog técnico con Astro y Notion como CMS, ideal para writeups de CTFs, labs y proyectos de ciberseguridad.
+
+## ✨ Características
+
+- Astro + TailwindCSS + Markdown
+- Notion como CMS sin necesidad de headless CMS externo
+- Descarga automática de contenido y portadas
+- Generación estática (SSG)
+- Diseño estilo terminal oscuro y responsive
+
+## 🔄 Flujo de trabajo
+
+1. Escribes en Notion
+2. Ejecutas `npm run update-site`
+3. Astro convierte el contenido y lo construye
+
+## 📂 Estructura
+
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
 /
 ├── public/
+│   └── images/ctf/             # Imágenes convertidas desde Notion
+├── scripts/
+│   └── fetch-notion.cjs       # Script para descargar y procesar el contenido
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── content/ctf/           # Archivos .md generados desde Notion
+│   ├── layouts/               # Layouts para páginas y plataformas
+│   ├── components/            # Navbar, footer, buscador...
+│   └── pages/                 # Index + rutas dinámicas Astro
+└── .env                       # Claves privadas
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🚀 Instalación
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+git clone https://github.com/villaarreola/notion-to-astro-md.git
+cd notion-to-astro-md
+npm install
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 🔐 Variables de entorno `.env`
 
-## 🧞 Commands
+```
+NOTION_TOKEN=tu_token
+NOTION_DB=tu_database_id
+```
 
-All commands are run from the root of the project, from a terminal:
+## 📅 Uso diario
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```bash
+npm run update-site  # Sincroniza Notion y hace build
+npm run dev          # Servidor local
+```
 
-## 👀 Want to learn more?
+## 🌟 Inspirado en
+- Astro
+- Notion
+- Hack The Box, TryHackMe, y writeups de la comunidad
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🙌 Autor
+**Villa Arreola** - [villaarreola.com](https://villaarreola.com)
+
+---
+
+❤️ Star este repo si te ayudó.
+
+📢 PRs y mejoras bienvenidas.
