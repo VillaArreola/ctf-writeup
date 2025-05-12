@@ -3,7 +3,9 @@ title: "trikc"
 platform: "THM"
 publishedAt: 2025-05-24
 cover: "/images/ctf/nota4-cover.webp"
-preview: "Explotamos un sitio WordPress vulnerable con CVE-2024-25600"
+preview: "brtbrtbrtbrtb"
+tags: [rockyou]
+link: "Sin link"
 ---
 
 # 🧱 TryHackMe – Bricks Heist | Write-up técnico

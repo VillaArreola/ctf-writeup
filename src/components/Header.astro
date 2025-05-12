@@ -25,4 +25,11 @@ const { frontmatter } = Astro.props;
       </>
     )}
   </nav>
+  <script type="module">
+    import Alpine from 'https://cdn.skypack.dev/alpinejs';
+    window.Alpine = Alpine;
+    Alpine.store('search', { query: '' });
+    Alpine.start();
+  </script>
+  
 </header>

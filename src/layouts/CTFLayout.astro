@@ -1,36 +1,36 @@
 ---
-// Este layout recibe "Content" y "post" desde la página [slug].astro
 const { Content, frontmatter } = Astro.props;
 import '../styles/global.css';
-
 import Header from '../components/Header.astro';
 import SidebarCTF from '../components/SidebarCTF.astro';
 import Footer from '../components/Footer.astro';
-
-
-
 ---
 
-<html lang="es">
+<html lang="es" class="min-h-screen">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{frontmatter.title}</title>
+    <!-- Puedes agregar más scripts aquí -->
+    <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
   </head>
-  <body class="bg-black text-white font-sans">
-   
-  <Header frontmatter={frontmatter} />
 
+  <!-- Layout vertical en toda la pantalla -->
+  <body class="min-h-screen flex flex-col bg-black text-white font-sans">
 
-    <div class="flex max-w-7xl mx-auto py-10 px-6">
-      <!-- Índice lateral -->
-  
-    <SidebarCTF />
-      <!-- Contenido principal -->
+    <!-- Header personalizado para writeups -->
+    <Header frontmatter={frontmatter} />
+
+    <!-- Contenedor principal: Sidebar + contenido -->
+    <div class="flex flex-grow max-w-7xl mx-auto py-10 px-6 w-full">
+      <!-- Sidebar lateral con índice o navegación -->
+      <SidebarCTF />
+
+      <!-- Contenido del writeup -->
       <main class="w-4/5 prose prose-invert max-w-none">
         <Content />
 
-        <!-- Comentarios -->
+        <!-- Comentarios con Cusdis -->
         <div class="mt-16">
           <div
             id="cusdis_thread"
@@ -40,13 +40,11 @@ import Footer from '../components/Footer.astro';
             data-page-url={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`}
             data-page-title={frontmatter.title}
           ></div>
-          <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
         </div>
       </main>
     </div>
 
-    <!-- Footer -->
-    
+    <!-- Footer pegado al fondo si hay poco contenido -->
     <Footer />
   </body>
 </html>

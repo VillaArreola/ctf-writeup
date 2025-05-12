@@ -3,7 +3,9 @@ title: "Test2"
 platform: "HTB"
 publishedAt: 2025-05-10
 cover: "/images/ctf/nota6-cover.webp"
-preview: "Explotamos un sitio WordPress vulnerable con CVE-2024-25600"
+preview: "btrbrtbtrbrtbt"
+tags: [rockyou]
+link: "Sin link"
 ---
 
 ## 🗓️ Fecha

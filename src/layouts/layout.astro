@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<html lang="es" class="min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <slot name="head" />
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-black text-white font-sans px-6 py-10">
+    <Navbar />
+
+    <main class="flex-grow max-w-6xl mx-auto" x-data>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

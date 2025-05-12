@@ -3,7 +3,9 @@ title: "trikc"
 platform: "THM"
 publishedAt: 2025-05-09
 cover: "/images/ctf/nota2-cover.webp"
-preview: "Explotamos un sitio WordPress vulnerable con CVE-2024-25600"
+preview: "vbrgbrgbhhrtbr"
+tags: [rockyou, Hydra]
+link: "pruweba.link"
 ---
 
 ---

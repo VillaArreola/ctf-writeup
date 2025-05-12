@@ -7,6 +7,8 @@ const ctf = defineCollection({
     publishedAt: z.date(),
     cover: z.string().optional(),   // 👈 esto debe estar
     preview: z.string().optional(), // si también estás usando `preview`
+    tags: z.array(z.string()).optional(),
+    link: z.string().optional(),
   }),
 });
 

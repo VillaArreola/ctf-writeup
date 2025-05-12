@@ -44,6 +44,8 @@ async function fetchWriteups() {
   const validSlugs = [];
 
   for (const page of response.results) {
+   // console.log('🔍 Propiedades de la página:', JSON.stringify(page.properties, null, 2));
+    //console.log('---');
     try {
       const md = await n2m.pageToMarkdown(page.id);
       let content = n2m.toMarkdownString(md).parent;
@@ -59,6 +61,9 @@ async function fetchWriteups() {
 
       const platform = page.properties.Platform?.select?.name ?? 'sin-plataforma';
       const date = new Date(page.properties.Date?.date?.start ?? '2025-01-01').toISOString();
+      const preview = page.properties.Preview?.rich_text?.[0]?.plain_text ?? 'Sin descripción';
+      const tags = page.properties.Tags?.multi_select?.map(tag => tag.name) ?? [];
+      const link = page.properties.link?.rich_text?.[0]?.plain_text ?? 'Sin link'; 
 
       const fileObj = page.properties['Files & media']?.files?.[0];
       const imageUrl = fileObj?.type === 'file' ? fileObj.file.url : fileObj?.external?.url ?? '';
@@ -79,6 +84,9 @@ async function fetchWriteups() {
         `platform: "${platform}"`,
         `publishedAt: ${date.split('T')[0]}`,
         `cover: "${coverImagePath}"`,
+        `preview: "${preview}"`,
+        `tags: [${tags.join(', ')}]`,
+        `link: "${link}"`,
         '---\n',
       ].join('\n');
 

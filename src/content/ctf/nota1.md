@@ -1,9 +1,11 @@
 ---
 title: "Test"
-platform: "TkM"
+platform: "THM"
 publishedAt: 2025-05-09
 cover: "/images/ctf/nota1-cover.webp"
-preview: "Explotamos un sitio WordPress vulnerable con CVE-2024-25600"
+preview: "DEscrivivijnn"
+tags: [rockyou]
+link: "tesxt.link"
 ---
 
 # 🧱 TryHackMe – Bricks Heist | Write-up técnico
