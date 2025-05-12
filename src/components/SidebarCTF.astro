@@ -1,9 +1,54 @@
-<aside class="w-1/5 pr-4 sticky top-20 text-sm text-gray-400 space-y-2">
-  <ul class="space-y-2 border-l border-gray-700 pl-4">
-    <li><a href="#descripcion" class="hover:text-cyan-400">🧠 Descripción</a></li>
-    <li><a href="#recon" class="hover:text-cyan-400">🔍 Reconocimiento</a></li>
-    <li><a href="#vulns" class="hover:text-cyan-400">⚠️ Vulnerabilidades</a></li>
-    <li><a href="#exploits" class="hover:text-cyan-400">💥 Explotación</a></li>
-    <li><a href="#escalada" class="hover:text-cyan-400">📈 Escalada</a></li>
-  </ul>
+<aside
+  x-data="{
+    show: false,
+    headings: [],
+    active: '',
+    observer: null,
+    init() {
+      const found = [...document.querySelectorAll('h2[id]')];
+      this.headings = found.map(h => {
+        h.setAttribute('data-section', '');
+        return { id: h.id, text: h.textContent.trim() };
+      });
+      this.observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            this.active = entry.target.id;
+          }
+        }
+      }, { threshold: 0.3 });
+      found.forEach(h => this.observer.observe(h));
+    }
+  }"
+  class="relative md:mr-6"
+>
+  <!-- Botón para móviles -->
+  <button
+    class="md:hidden fixed top-24 left-4 z-50 bg-cyan-700 text-white px-3 py-1 rounded shadow"
+    @click="show = !show"
+  >
+    🧭 Índice
+  </button>
+
+  <!-- Sidebar completo -->
+  <div
+    x-show="show || window.innerWidth >= 768"
+    class="sticky top-20 self-start h-max text-sm text-gray-400 border-r border-gray-700 pl-4 pr-6 w-full md:w-64 bg-black md:block"
+    :class="{ 'block': show, 'hidden': !show && window.innerWidth < 768 }"
+  >
+    <ul class="space-y-2">
+      <template x-for="item in headings" :key="item.id">
+        <li>
+          <a
+            :href="`#${item.id}`"
+            :class="{
+              'text-cyan-400 font-semibold': active === item.id,
+              'text-gray-400 hover:text-cyan-400': active !== item.id
+            }"
+            x-text="item.text"
+          ></a>
+        </li>
+      </template>
+    </ul>
+  </div>
 </aside>

@@ -6,6 +6,15 @@ cover: "/images/ctf/nota1-cover.webp"
 preview: "DEscrivivijnn"
 tags: [rockyou]
 link: "tesxt.link"
+toc:
+  - text: "🔍 Reconocimiento inicial"
+    id: "reconocimiento-inicial"
+  - text: "🎯 Enumeración de WordPress"
+    id: "enumeracion-de-wordpress"
+  - text: "🔓 Acceso inicial"
+    id: "acceso-inicial"
+  - text: "💥 Explotación del CVE"
+    id: "explotacion-del-cve"
 ---
 
 # 🧱 TryHackMe – Bricks Heist | Write-up técnico

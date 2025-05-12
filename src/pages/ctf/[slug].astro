@@ -11,8 +11,23 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const post = await getEntryBySlug('ctf', slug);
+
 if (!post) throw new Error('Post no encontrado');
-const { Content } = await post.render();
+const { Content, headings } = await post.render();
+const toc = headings
+  .filter(h => h.depth === 2) // Solo encabezados ## (no ### o #)
+  .map(h => ({
+    text: h.text,
+    id: h.slug, // ya viene generado
+  }));
+
+const frontmatter = {
+  ...post.data,
+  slug,
+  toc,
+};
+
+console.log("👉 Frontmatter recibido:", frontmatter);
 ---
 
-<CTFLayout Content={Content} frontmatter={{ ...post.data, slug }} />
+<CTFLayout Content={Content} frontmatter={frontmatter} />

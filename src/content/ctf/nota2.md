@@ -6,6 +6,25 @@ cover: "/images/ctf/nota2-cover.webp"
 preview: "vbrgbrgbhhrtbr"
 tags: [rockyou, Hydra]
 link: "pruweba.link"
+toc:
+  - text: "🔍 Reconocimiento inicial"
+    id: "reconocimiento-inicial"
+  - text: "🎯 Enumeración de WordPress"
+    id: "enumeracion-de-wordpress"
+  - text: "🔓 Acceso inicial"
+    id: "acceso-inicial"
+  - text: "💥 Explotación del CVE"
+    id: "explotacion-del-cve"
+  - text: "🐚 Post-explotación"
+    id: "post-explotacion"
+  - text: "📁 Análisis del miner"
+    id: "analisis-del-miner"
+  - text: "🔓 Decodificación de wallet"
+    id: "decodificacion-de-wallet"
+  - text: "🕵️ Asociación con grupo de amenazas"
+    id: "asociacion-con-grupo-de-amenazas"
+  - text: "✅ Conclusión"
+    id: "conclusion"
 ---
 
 ---

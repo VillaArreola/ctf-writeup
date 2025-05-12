@@ -77,18 +77,37 @@ async function fetchWriteups() {
         const localPath = await downloadAndConvertToWebP(imgUrl, imageName);
         content = content.replace(imgUrl, localPath);
       }
+        // Detectar encabezados ## en el contenido
+        const headings = [...content.matchAll(/^##\s+(.*)/gm)].map(h => {
+          const text = h[1].trim();
+          const id = text
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')       // elimina acentos
+          .replace(/[^a-z0-9\s-]/g, '')          // quita emojis y símbolos raros
+          .trim()
+          .replace(/\s+/g, '-')                  // espacios → guiones
+          .replace(/^-+|-+$/g, '');              // quita guiones al inicio y fin
 
-      const frontmatter = [
-        '---',
-        `title: "${title}"`,
-        `platform: "${platform}"`,
-        `publishedAt: ${date.split('T')[0]}`,
-        `cover: "${coverImagePath}"`,
-        `preview: "${preview}"`,
-        `tags: [${tags.join(', ')}]`,
-        `link: "${link}"`,
-        '---\n',
-      ].join('\n');
+          return { text, id };
+        });
+
+        const tocYaml = headings.length > 0
+          ? `toc:\n${headings.map(h => `  - text: "${h.text}"\n    id: "${h.id}"`).join('\n')}`
+          : '';
+
+        const frontmatter = [
+          '---',
+          `title: "${title}"`,
+          `platform: "${platform}"`,
+          `publishedAt: ${date.split('T')[0]}`,
+          `cover: "${coverImagePath}"`,
+          `preview: "${preview}"`,
+          `tags: [${tags.join(', ')}]`,
+          `link: "${link}"`,
+          tocYaml,
+          '---\n',
+        ].join('\n');
 
       const filePath = path.join(CONTENT_DIR, `${slug}.md`);
       await fs.writeFile(filePath, frontmatter + content);

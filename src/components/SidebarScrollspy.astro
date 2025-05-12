@@ -1,0 +1,53 @@
+<aside
+  x-data="{
+    active: '',
+    observer: null,
+    init() {
+      const sections = document.querySelectorAll('[data-section]');
+      this.observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            this.active = entry.target.id;
+          }
+        }
+      }, { threshold: 0.3 });
+
+      sections.forEach(section => this.observer.observe(section));
+    }
+  }"
+  class="w-1/5 pr-4 sticky top-20 text-sm text-gray-400"
+  aria-label="Índice de secciones del writeup"
+>
+  <ul class="space-y-2 border-l border-gray-700 pl-4">
+    <template x-for="item in [
+      { text: '📅 Fecha', id: 'fecha' },
+      { text: '🎯 Objetivo', id: 'objetivo' },
+      { text: '🛠️ Herramientas utilizadas', id: 'herramientas' },
+      { text: '🔍 Reconocimiento', id: 'reconocimiento' },
+      { text: '📑 Enumeración', id: 'enumeracion' },
+      { text: '💣 Explotación', id: 'explotacion' },
+      { text: '🟪 Acceso obtenido', id: 'acceso' },
+      { text: '🌿 Post-explotación', id: 'postexploit' },
+      { text: '🧬 Análisis de malware / miner', id: 'malware' },
+      { text: '🕵️ OSINT / Attribution', id: 'osint' },
+      { text: '🧠 IOCs', id: 'iocs' },
+      { text: '📝 Lecciones aprendidas', id: 'lecciones' },
+      { text: '✅ Conclusión', id: 'conclusion' },
+    ]" :key="item.id">
+      <li>
+        <a
+          :href="`#${item.id}`"
+          :class="{
+            'text-cyan-400 font-semibold': active === item.id,
+            'text-gray-400 hover:text-cyan-400': active !== item.id
+          }"
+        >
+          <span x-text="item.text"></span>
+        </a>
+      </li>
+    </template>
+  </ul>
+</aside>
+
+<!-- En cada sección de tu contenido, agrega: -->
+<!-- <section id="objetivo" data-section>...</section> -->
