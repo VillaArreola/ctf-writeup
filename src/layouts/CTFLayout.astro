@@ -17,16 +17,68 @@ const { Content, frontmatter } = Astro.props;
 
   <body class="min-h-screen flex flex-col bg-black text-white font-sans">
     <Header frontmatter={frontmatter} />
+    
+
+
+
+
 
     <div class="flex flex-grow max-w-7xl mx-auto py-10 px-6 w-full">
       <!-- Sidebar con índice dinámico -->
       <SidebarCTF frontmatter={frontmatter} />
 
       <!-- Contenido principal -->
-      <main class="w-4/5 prose prose-invert max-w-none">
-        <Content />
+      <main class="w-4/5">
+        <!-- Banner del writeup -->
+        <section
+        class="relative w-full min-h-64 text-white overflow-hidden rounded-xl shadow mb-8 flex flex-col justify-end"
+        style={`background-image: url('/images/ctf/${frontmatter.slug}-cover.webp'); background-size: cover; background-position: center;`}
+      >
+        <!-- Contenido responsivo abajo -->
+        <div class="z-10 px-4 py-3 sm:px-6 sm:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 bg-gradient-to-t from-black/80 sm:bg-black/70 backdrop-blur-sm">
+          <!-- Info -->
+          <div class="flex flex-col gap-2">
+            <h1 class="text-xl sm:text-2xl font-bold text-cyan-400">{frontmatter.title}</h1>
+            <div class="flex gap-3 flex-wrap text-xs sm:text-sm text-gray-300">
+              <span>🧩 CVE: <strong>{frontmatter.cve ?? 'N/A'}</strong></span>
+              <span>💪 Dificultad: <strong>{frontmatter.difficulty ?? 'Desconocida'}</strong></span>
+              <span>📅 Fecha: <strong>{new Date(frontmatter.publishedAt).toLocaleDateString('es-MX')}</strong></span>
+            </div>
+          </div>
+      
+          <!-- Tags -->
+          <div class="flex gap-2 flex-wrap justify-start sm:justify-end">
+            {frontmatter.tags?.map(tag => {
+              const tagColors = {
+                THM: 'bg-purple-600',
+                HTB: 'bg-red-600',
+                CiberLabs: 'bg-orange-600',
+                OSINT: 'bg-yellow-500',
+                Default: 'bg-cyan-800',
+              };
+              const color = tagColors[tag] || tagColors.Default;
+      
+              return (
+                <span
+                  class={`text-white px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
+                >
+                  🔖 {tag}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      
+      
 
-        <!-- Comentarios -->
+      
+      
+        <article class="prose prose-invert max-w-none">
+          <Content />
+        </article>
+      
+        <!-- Comentarios (mantener fuera del artículo) -->
         <div class="mt-16">
           <div
             id="cusdis_thread"
