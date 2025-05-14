@@ -12,7 +12,7 @@ const simplified = ctfPosts.map((post) => ({
   platform: post.data.platform,
   slug: post.slug,
   date: new Date(post.data.publishedAt).toLocaleDateString('es-MX'),
-  cover: post.data.cover ?? `/images/default-cover.jpg`,
+  cover: post.data.cover ?? `/images/default-cover.svg`,
   preview: post.data.preview ?? '',
   tags: post.data.tags?.join(' ') ?? ''
 }));
@@ -84,7 +84,7 @@ const postsJson = JSON.stringify(simplified);
                 <img
                   :src="post.cover"
                   :alt="`Portada de ${post.title}`"
-                  @error="event.target.src = '/images/default-cover.jpg'"
+                  @error="event.target.src = '/images/default-cover.svg'"
                   class="w-full h-40 object-cover rounded mb-4"
                 />
                 <div class="mb-4">

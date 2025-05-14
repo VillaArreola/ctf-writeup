@@ -4,6 +4,19 @@
     all: revert;
 }
 
+.prose code {
+  font-family: 'Fira Code', monospace;
+
+   
+}
+
+.prose pre {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #1e293b;
+}
+
+
 .prose img {
     max-width: 70%;
     height: auto;
@@ -14,3 +27,36 @@
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.prose details {
+    background-color: #1e293b;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+  
+.prose summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #22d3ee;
+    &:hover {
+      color: #67e8f9;
+    }
+}
+.prose a {
+    text-decoration: none;
+    color: #22d3ee;
+    &:hover {
+      color: #20db49;
+    }
+}
+
+
+    summary {
+        cursor: pointer;
+        font-weight: bold;
+        color: #22d3ee;
+        &:hover {
+            color: #67e8f9;
+        }
+    }   

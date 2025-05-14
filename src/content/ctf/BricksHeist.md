@@ -1,5 +1,5 @@
 ---
-title: "Bricks Heist"
+title: "TryHackMe – Bricks Heist   "
 platform: "THM"
 publishedAt: 2025-05-12
 cover: "/images/ctf/bricksheist-cover.webp"
@@ -9,10 +9,6 @@ link: "https://tryhackme.com/room/tryhack3mbricksheist"
 toc:
   - text: "🕵️ Introducción"
     id: "introduccion"
-  - text: "📅 Fecha:  May-12-2025"
-    id: "fecha-may-12-2025"
-  - text: "🛠️  Herramientas utilizadas"
-    id: "herramientas-utilizadas"
   - text: "🔍 1. Reconocimiento"
     id: "1-reconocimiento"
   - text: "🔢 2. Enumeración de servicios"
@@ -42,37 +38,23 @@ toc:
 ---
 
 
-#                                🧱 TryHackMe – Bricks Heist
+#            
 
 
-## 🕵️ Introducción
+## 🕵️ Introducción 
 
 
 En este reto de TryHackMe nos enfrentamos a un escenario en el que un sitio WordPress ha sido comprometido por un actor malicioso. Nuestra misión es investigar, identificar cómo se produjo el ataque, qué malware fue desplegado y qué grupo está detrás.
 
-
-## 📅 Fecha:  May-12-2025
-
-
-## 🛠️  Herramientas utilizadas
-
 <details>
-<summary>Hydra</summary>
-- Hydra
-- Python
+<summary>Herramientas y recursos externos utilizados </summary>
+
+- Hydra > (https://github.com/OWASP/hydra)
+- nmap > (https://nmap.org/)
+- wpscan > (https://wpscan.com/)
+- CVE-2024-25600 > (https://github.com/Chocapikk/CVE-2024-25600)
 
 </details>
-
-
-[link_preview](https://github.com/Chocapikk/CVE-2024-25600)
-
-
-> 💡 [https://github.com/Chocapikk/CVE-2024-25600](https://github.com/Chocapikk/CVE-2024-25600)
-
-
-```plain text
-https://github.com/Chocapikk/CVE-2024-25600
-```
 
 
 ## 🔍 1. Reconocimiento
@@ -256,5 +238,5 @@ Este reto combina:
 - Escalada post-explotación
 - Análisis forense y OSINT
 
-![Bricks_Heist.png](/images/ctf/BricksHeist-0.webp)
+![Bricks_Heist.png](/images/ctf/bricksheist-0.webp)
 
