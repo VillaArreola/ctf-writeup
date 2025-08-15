@@ -13,7 +13,7 @@ module.exports = {
       fontFamily: {
         mono: ['"Fira Code"', 'monospace'],
       },
-      typography: theme => ({
+      typography: (theme) => ({
         invert: {
           css: {
             a: { color: '#22d3ee', '&:hover': { color: '#67e8f9' } },
@@ -29,7 +29,8 @@ module.exports = {
               marginTop: theme('spacing.4'),
               marginBottom: theme('spacing.4'),
             },
-          
+          },
+        },
       }),
     },
   },
