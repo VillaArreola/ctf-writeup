@@ -21,9 +21,9 @@ const simplified = ctfPosts
 <Layout>
   <SearchBar />
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10" x-data>
     <!-- Bento Grid: Móvil uniforme, Desktop con diferentes tamaños -->
-          <div class="grid grid-cols-8 gap-6">
+    <div class="grid grid-cols-8 gap-6">
         {simplified.map((post, i) => {
           const colSpan =
             i === 0 || i === 3 ? 'col-span-5' :
@@ -34,6 +34,11 @@ const simplified = ctfPosts
             <a
               href={`/ctf/${post.slug}`}
               class={`group relative ${colSpan} bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400`}
+              data-title={post.title}
+              data-platform={post.platform}
+              data-tags={post.tags}
+              data-preview={post.preview}
+              x-show="`${$el.dataset.title} ${$el.dataset.platform} ${$el.dataset.tags} ${$el.dataset.preview}`.toLowerCase().includes($store.search.query.toLowerCase())"
             >
               {/* Imagen de portada */}
               <img
@@ -85,6 +90,14 @@ const simplified = ctfPosts
             </a>
           );
         })}
-    </div>
-  </main>
+      </div>
+
+      {/* Sin resultados */}
+      <p
+        class="text-sm text-gray-500 mt-6"
+        x-show="!Array.from($el.previousElementSibling.children).some(el => el.offsetParent !== null) && $store.search.query"
+      >
+        😢 No se encontraron resultados para "<span x-text="$store.search.query"></span>".
+      </p>
+    </main>
 </Layout>

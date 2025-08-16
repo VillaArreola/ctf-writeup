@@ -29,7 +29,7 @@ export const hydrate = 'load';
   <div class="mt-4 text-sm text-gray-400">
     <p class="mb-1">Búsqueda rápida:</p>
     <div class="flex flex-wrap gap-3">
-      <template x-for="ejemplo in ['HTB', 'THM', 'nmap', 'SQLi', 'reverse shell', 'XSS', 'LFI', 'crackmapexec', 'dirb', 'burpsuite', 'gobuster', 'wfuzz', 'enum4linux', 'kerberoasting']" :key="ejemplo">
+      <template x-for="ejemplo in ['HTB', 'THM', 'OSINT', 'Hydra', 'WordPress', 'nmap', 'SQLi', 'reverse shell', 'XSS', 'LFI', 'crackmapexec', 'dirb', 'burpsuite', 'gobuster', 'wfuzz', 'enum4linux', 'kerberoasting', 'GraphQL', 'subdomain', 'enumeration']" :key="ejemplo">
         <button
           type="button"
           @click="$store.search.query = ejemplo"

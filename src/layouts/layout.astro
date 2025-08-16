@@ -42,6 +42,14 @@ import Footer from '../components/Footer.astro';
     <meta name="msapplication-TileColor" content="#0891b2" />
     
     <slot name="head" />
+    
+    <!-- Alpine.js para búsqueda dinámica -->
+    <script type="module">
+      import Alpine from 'https://cdn.skypack.dev/alpinejs';
+      window.Alpine = Alpine;
+      Alpine.store('search', { query: '' });
+      Alpine.start();
+    </script>
   </head>
 
   <body class="min-h-screen flex flex-col bg-black text-white font-sans px-6 py-10 relative">
