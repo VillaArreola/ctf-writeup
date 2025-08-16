@@ -1,5 +1,5 @@
 ---
-title: "TryHackMe – Bricks Heist   "
+title: "TryHackMe – Bricks "
 platform: "THM"
 publishedAt: 2025-05-12
 cover: "/images/ctf/bricksheist-cover.webp"
@@ -49,10 +49,9 @@ En este reto de TryHackMe nos enfrentamos a un escenario en el que un sitio Word
 <details>
 <summary>Herramientas y recursos externos utilizados </summary>
 
-- Hydra > (https://github.com/OWASP/hydra)
-- nmap > (https://nmap.org/)
-- wpscan > (https://wpscan.com/)
-- CVE-2024-25600 > (https://github.com/Chocapikk/CVE-2024-25600)
+Hydra
+
+> [https://github.com/Chocapikk/CVE-2024-25600](https://github.com/Chocapikk/CVE-2024-25600)
 
 </details>
 
