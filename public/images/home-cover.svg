@@ -1,0 +1,65 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Writeups CTF - Villa Arreola">
+  <!-- Fondo degradado -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d0e10;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d0e10;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0891b2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00ffff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="url(#bgGradient)"/>
+  
+  <!-- Patrón de líneas VA sutil -->
+  <g opacity="0.1">
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="#00ffff" stroke-width="2"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="#00ffff" stroke-width="2"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="#00ffff" stroke-width="2"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="#00ffff" stroke-width="2"/>
+    <line x1="0" y1="500" x2="1200" y2="500" stroke="#00ffff" stroke-width="2"/>
+  </g>
+
+  <!-- Iconos de plataformas -->
+  <g transform="translate(100, 150)">
+    <!-- HTB -->
+    <circle cx="50" cy="50" r="40" fill="#ff4444" opacity="0.8"/>
+    <text x="50" y="60" fill="white" font-size="24" text-anchor="middle" font-family="monospace" font-weight="bold">HTB</text>
+  </g>
+  
+  <g transform="translate(200, 150)">
+    <!-- THM -->
+    <circle cx="50" cy="50" r="40" fill="#8b5cf6" opacity="0.8"/>
+    <text x="50" y="60" fill="white" font-size="24" text-anchor="middle" font-family="monospace" font-weight="bold">THM</text>
+  </g>
+
+  <!-- Título principal -->
+  <text x="50%" y="45%" font-size="64" text-anchor="middle" fill="url(#textGradient)" font-family="monospace" font-weight="bold" dominant-baseline="middle">
+    Writeups CTF
+  </text>
+
+  <!-- Subtítulo -->
+  <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="#888" font-family="monospace" dominant-baseline="middle">
+    Colección de write-ups técnicos
+  </text>
+
+  <!-- Autor -->
+  <text x="50%" y="65%" font-size="28" text-anchor="middle" fill="#00ffff" font-family="monospace" dominant-baseline="middle">
+    Villa Arreola
+  </text>
+
+  <!-- Dominio -->
+  <text x="50%" y="75%" font-size="24" text-anchor="middle" fill="#666" font-family="monospace" dominant-baseline="middle">
+    ctf.villaarreola.com
+  </text>
+
+  <!-- Elementos decorativos -->
+  <g transform="translate(900, 150)">
+    <rect width="80" height="60" rx="8" fill="#1a1a1a" stroke="#00ffff" stroke-width="2"/>
+    <text x="40" y="35" fill="#00ffff" font-size="20" text-anchor="middle" font-family="monospace">&gt;_</text>
+  </g>
+</svg>

@@ -25,7 +25,7 @@ const { frontmatter } = Astro.props;
     <meta property="og:url" content={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`} />
     <meta property="og:title" content={frontmatter.title} />
     <meta property="og:description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
-    <meta property="og:image" content={`https://ctf.villaarreola.com/images/ctf/${frontmatter.slug}-cover.webp`} />
+    <meta property="og:image" content={frontmatter.cover ? `https://ctf.villaarreola.com${frontmatter.cover}` : 'https://ctf.villaarreola.com/images/default-cover.svg'} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Writeups CTF" />
@@ -41,7 +41,7 @@ const { frontmatter } = Astro.props;
     <meta property="twitter:url" content={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`} />
     <meta property="twitter:title" content={frontmatter.title} />
     <meta property="twitter:description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
-    <meta property="twitter:image" content={`https://ctf.villaarreola.com/images/ctf/${frontmatter.slug}-cover.webp`} />
+    <meta property="twitter:image" content={frontmatter.cover ? `https://ctf.villaarreola.com${frontmatter.cover}` : 'https://ctf.villaarreola.com/images/default-cover.svg'} />
     <meta property="twitter:creator" content="@villaarreola" />
     
     <!-- Favicon -->
