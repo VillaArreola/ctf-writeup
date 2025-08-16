@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ctf.villaarreola.com/sitemap.xml
+
+# Crawl-delay (opcional, para ser amigable con los bots)
+Crawl-delay: 1

@@ -41,6 +41,15 @@ import Footer from '../components/Footer.astro';
     <meta name="theme-color" content="#0891b2" />
     <meta name="msapplication-TileColor" content="#0891b2" />
     
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
     <slot name="head" />
     
     <!-- Alpine.js para búsqueda dinámica -->
