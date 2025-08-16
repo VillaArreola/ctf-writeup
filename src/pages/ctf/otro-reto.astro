@@ -1,8 +1,25 @@
 ---
 import CTFLayout from '../../layouts/CTFLayout.astro';
+
+const frontmatter = {
+  title: "Otro Reto – HTB",
+  platform: "HTB",
+  publishedAt: new Date().toISOString(),
+  cover: "/images/default-cover.svg",
+  preview: "Write-up de prueba para otro reto en HTB",
+  tags: ["HTB"],
+  link: "https://hackthebox.com/",
+  slug: "otro-reto",
+  toc: [
+    { text: "🕵️ Introducción", id: "introduccion" },
+    { text: "🔍 Reconocimiento", id: "reconocimiento" },
+    { text: "💣 Explotación", id: "explotacion" },
+    { text: "📝 Conclusión", id: "conclusion" }
+  ]
+};
 ---
 
-<CTFLayout title="Otro Reto – HTB">
+<CTFLayout frontmatter={frontmatter}>
   <h1 class="text-3xl font-bold mb-4">Otro Reto – HTB</h1>
   <p class="text-sm text-gray-400 mb-6">Plataforma: HackTheBox</p>
 
