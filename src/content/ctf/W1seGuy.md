@@ -1,10 +1,10 @@
 ---
-title: "W1seGu"
+title: "W1seGuy"
 platform: "THM"
 publishedAt: 2025-05-15
 cover: "/images/ctf/w1seguy-cover.webp"
 preview: "Un hombre sabio dijo una vez que la respuesta suele ser tan clara como el día."
-tags: []
+tags: [OSINT]
 link: "https://tryhackme.com/room/"
 toc:
   - text: "🧱 TryHackMe – XOR CTF | Write-up Técnico"

@@ -4,7 +4,7 @@ platform: "THM"
 publishedAt: 2025-05-13
 cover: "/images/ctf/takeover-cover.webp"
 preview: "This challenge revolves around subdomain enumeration."
-tags: []
+tags: [OSINT]
 link: "https://tryhackme.com/room/"
 toc:
   - text: "🕵️ Introducción"
@@ -314,5 +314,5 @@ Este reto combina:
 - Escalada post-explotación
 - Análisis forense y OSINT
 
-![Bricks_Heist.png](/images/ctf/takeover-1.webp)
+![takeover.png](/images/ctf/takeover-1.webp)
 

@@ -11,10 +11,47 @@ import Footer from '../components/Footer.astro';
     <slot name="head" />
   </head>
 
-  <body class="min-h-screen flex flex-col bg-black text-white font-sans px-6 py-10">
+  <body class="min-h-screen flex flex-col bg-black text-white font-sans px-6 py-10 relative">
+    <!-- Patrón de líneas VA en el fondo -->
+    <div class="fixed inset-0 opacity-40 pointer-events-none">
+      <div class="absolute inset-0 w-full h-full">
+        <!-- Patrón repetitivo de líneas VA -->
+        <div class="absolute top-20 left-10 w-4 h-24 bg-gradient-to-b from-blue-400 to-blue-600 transform -rotate-12"></div>
+        <div class="absolute top-20 left-18 w-4 h-24 bg-gradient-to-b from-blue-400 to-blue-600 transform rotate-12"></div>
+        <div class="absolute top-36 left-28 w-4 h-24 bg-gradient-to-b from-blue-400 to-blue-600 transform -rotate-12"></div>
+        <div class="absolute top-36 left-36 w-4 h-24 bg-gradient-to-b from-blue-400 to-blue-600 transform rotate-12"></div>
+        <div class="absolute top-52 left-34 w-5 h-3 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+        
+        <!-- Más líneas distribuidas -->
+        <div class="absolute top-80 left-80 w-4 h-20 bg-gradient-to-b from-blue-500 to-blue-700 transform rotate-45"></div>
+        <div class="absolute top-120 left-120 w-4 h-16 bg-gradient-to-b from-blue-400 to-blue-600 transform -rotate-45"></div>
+        <div class="absolute top-160 left-160 w-4 h-22 bg-gradient-to-b from-blue-300 to-blue-500 transform rotate-12"></div>
+        
+        <!-- Líneas en el lado derecho -->
+        <div class="absolute top-60 right-40 w-4 h-20 bg-gradient-to-b from-blue-400 to-blue-600 transform -rotate-12"></div>
+        <div class="absolute top-60 right-48 w-4 h-20 bg-gradient-to-b from-blue-400 to-blue-600 transform rotate-12"></div>
+        <div class="absolute top-76 right-44 w-5 h-3 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+        
+        <!-- Líneas en el centro -->
+        <div class="absolute top-200 left-1/2 w-4 h-18 bg-gradient-to-b from-blue-500 to-blue-700 transform -rotate-12"></div>
+        <div class="absolute top-200 left-1/2 transform translate-x-8 w-4 h-18 bg-gradient-to-b from-blue-500 to-blue-700 transform rotate-12"></div>
+        <div class="absolute top-214 left-1/2 transform translate-x-4 w-5 h-3 bg-gradient-to-r from-blue-500 to-blue-700"></div>
+        
+        <!-- Líneas adicionales para más cobertura -->
+        <div class="absolute top-300 left-20 w-4 h-16 bg-gradient-to-b from-blue-400 to-blue-600 transform rotate-30"></div>
+        <div class="absolute top-350 left-60 w-4 h-14 bg-gradient-to-b from-blue-500 to-blue-700 transform -rotate-30"></div>
+        <div class="absolute top-400 left-100 w-4 h-20 bg-gradient-to-b from-blue-300 to-blue-500 transform rotate-15"></div>
+        
+        <!-- Líneas en la parte inferior -->
+        <div class="absolute top-500 left-40 w-4 h-18 bg-gradient-to-b from-blue-400 to-blue-600 transform -rotate-12"></div>
+        <div class="absolute top-500 left-48 w-4 h-18 bg-gradient-to-b from-blue-400 to-blue-600 transform rotate-12"></div>
+        <div class="absolute top-516 left-44 w-5 h-3 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+      </div>
+    </div>
+
     <Navbar />
 
-    <main class="flex-grow max-w-6xl mx-auto" x-data>
+    <main class="flex-grow max-w-6xl mx-auto relative z-10" x-data>
       <slot />
     </main>
 
