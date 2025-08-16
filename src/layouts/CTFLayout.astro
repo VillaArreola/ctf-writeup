@@ -11,7 +11,48 @@ const { frontmatter } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{frontmatter.title}</title>
+    
+    <!-- Título dinámico -->
+    <title>{frontmatter.title} - Writeups CTF</title>
+    
+    <!-- Metadatos básicos -->
+    <meta name="description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
+    <meta name="author" content="Villa Arreola" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`} />
+    <meta property="og:title" content={frontmatter.title} />
+    <meta property="og:description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
+    <meta property="og:image" content={`https://ctf.villaarreola.com/images/ctf/${frontmatter.slug}-cover.webp`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Writeups CTF" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="article:published_time" content={frontmatter.publishedAt} />
+    <meta property="article:author" content="Villa Arreola" />
+    {frontmatter.tags?.map(tag => (
+      <meta property="article:tag" content={tag} />
+    ))}
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`} />
+    <meta property="twitter:title" content={frontmatter.title} />
+    <meta property="twitter:description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
+    <meta property="twitter:image" content={`https://ctf.villaarreola.com/images/ctf/${frontmatter.slug}-cover.webp`} />
+    <meta property="twitter:creator" content="@villaarreola" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/MVLOGO.png" />
+    <link rel="apple-touch-icon" href="/images/MVLOGO.png" />
+    
+    <!-- Tema de color -->
+    <meta name="theme-color" content="#0891b2" />
+    <meta name="msapplication-TileColor" content="#0891b2" />
+    
+    <!-- Comentarios -->
     <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
   </head>
 

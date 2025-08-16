@@ -30,4 +30,6 @@ const frontmatter = {
 console.log("👉 Frontmatter recibido:", frontmatter);
 ---
 
-<CTFLayout Content={Content} frontmatter={frontmatter} />
+<CTFLayout frontmatter={frontmatter}>
+  <Content />
+</CTFLayout>
