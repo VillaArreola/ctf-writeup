@@ -1,6 +1,33 @@
 
 @import "tailwindcss";
 
+/* Estilo para x-cloak de Alpine.js */
+[x-cloak] {
+  display: none !important;
+}
+
+/* Estilos para line-clamp (truncar texto) */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* Patrón de líneas VA en el fondo - Versión simplificada */
 body::before {
   content: '';

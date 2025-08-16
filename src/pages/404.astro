@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/layout.astro';
+---
+
+<Layout>
+  <div class="min-h-[60vh] flex flex-col items-center justify-center text-center px-6">
+    <!-- Icono de error -->
+    <div class="mb-8">
+      <div class="text-8xl mb-4">🔍</div>
+      <div class="text-6xl font-bold text-cyan-400 mb-2">404</div>
+      <div class="text-2xl text-gray-400">Página no encontrada</div>
+    </div>
+
+    <!-- Mensaje -->
+    <div class="max-w-md mb-8">
+      <p class="text-gray-300 mb-4">
+        Oops! Parece que te has aventurado en territorio desconocido. 
+        Esta página no existe o ha sido movida.
+      </p>
+      <p class="text-sm text-gray-500">
+        ¿Quizás estabas buscando un write-up específico que aún no hemos publicado?
+      </p>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+      <a 
+        href="/" 
+        class="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg transition-colors duration-200"
+      >
+        🏠 Volver al inicio
+      </a>
+      <a 
+        href="/ctf/thm" 
+        class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors duration-200"
+      >
+        🔍 Ver THM Writeups
+      </a>
+    </div>
+
+    <!-- Enlaces útiles -->
+    <div class="border-t border-gray-800 pt-8 w-full max-w-md">
+      <h3 class="text-lg font-semibold text-cyan-400 mb-4">Enlaces útiles</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+        <a href="https://cheats.villaarreola.com" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+          📋 CheatSheets
+        </a>
+        <a href="https://kb.villaarreola.com" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+          📚 Knowledge Base
+        </a>
+        <a href="https://github.com/villaarreola" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+          💻 GitHub
+        </a>
+        <a href="mailto:martin@villaarreola.com" class="text-gray-400 hover:text-cyan-400 transition-colors">
+          ✉️ Contacto
+        </a>
+      </div>
+    </div>
+
+    <!-- Mensaje divertido -->
+    <div class="mt-8 p-4 bg-gray-900/50 rounded-lg border border-gray-800">
+      <p class="text-xs text-gray-500">
+        💡 <em>"En el hacking, como en la vida, a veces hay que explorar caminos que no existen para encontrar los que sí."</em>
+      </p>
+    </div>
+  </div>
+</Layout>

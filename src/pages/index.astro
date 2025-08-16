@@ -5,51 +5,86 @@ import { getCollection } from 'astro:content';
 
 const ctfPosts = await getCollection('ctf');
 
-const simplified = ctfPosts.map((post) => ({
-  title: post.data.title,
-  platform: post.data.platform,
-  slug: post.slug,
-  date: new Date(post.data.publishedAt).toLocaleDateString('es-MX'),
-  cover: post.data.cover ?? `/images/default-cover.svg`,
-  preview: post.data.preview ?? '',
-  tags: post.data.tags?.join(' ') ?? ''
-}));
+const simplified = ctfPosts
+  .sort((a, b) => new Date(b.data.publishedAt) - new Date(a.data.publishedAt)) // Ordenar por fecha más reciente
+  .map((post) => ({
+    title: post.data.title,
+    platform: post.data.platform,
+    slug: post.slug,
+    date: new Date(post.data.publishedAt).toLocaleDateString('es-MX'),
+    cover: post.data.cover ?? `/images/default-cover.svg`,
+    preview: post.data.preview ?? '',
+    tags: post.data.tags?.join(' ') ?? ''
+  }));
 ---
 
 <Layout>
   <SearchBar />
 
-  <main class="max-w-7xl mx-auto px-6 py-10">
-    <div class="grid grid-cols-8 gap-6">
-      {simplified.map((post, i) => (
-        <a
-          href={`/ctf/${post.slug}`}
-          class={`group relative ${
-            i === 0 || i === 3 ? 'col-span-5' : 
-            i === 1 || i === 2 ? 'col-span-3' : 
-            'col-span-4'
-          }`}
-        >
-          <div class="bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400">
-            <img
-              src={post.cover}
-              alt={`Portada de ${post.title}`}
-              class="w-full h-40 object-cover rounded mb-4"
-            />
-            <div class="mb-4">
-              <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition">
-                {post.title}
-              </h3>
-              <p class="text-sm text-gray-400">
-                {post.platform} — {post.date}
-              </p>
-            </div>
-            <div class="text-sm text-gray-500 leading-relaxed">
-              {post.preview || 'Este writeup aún no tiene descripción. 🚧'}
-            </div>
-          </div>
-        </a>
-      ))}
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+    <!-- Bento Grid: Móvil uniforme, Desktop con diferentes tamaños -->
+          <div class="grid grid-cols-8 gap-6">
+        {simplified.map((post, i) => {
+          const colSpan =
+            i === 0 || i === 3 ? 'col-span-5' :
+            i === 1 || i === 2 ? 'col-span-3' :
+            'col-span-4';
+
+          return (
+            <a
+              href={`/ctf/${post.slug}`}
+              class={`group relative ${colSpan} bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400`}
+            >
+              {/* Imagen de portada */}
+              <img
+                src={post.cover}
+                alt={`Portada de ${post.title}`}
+                class="w-full h-48 object-cover rounded mb-4"
+              />
+              
+              {/* Título y plataforma */}
+              <div class="mb-4">
+                <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition">
+                  {post.title}
+                </h3>
+                <p class="text-sm text-gray-400">
+                  {post.platform} — {post.date}
+                </p>
+              </div>
+
+              {/* Descripción y etiquetas */}
+              <div class="flex flex-col sm:flex-row sm:justify-between gap-4 text-sm text-gray-400 leading-relaxed">
+                <div class="sm:w-1/2 sm:pr-6 sm:border-r sm:border-gray-700 text-gray-200 bg-black/30 p-3 rounded-md">
+                  {post.preview || 'Este writeup aún no tiene descripción. 🚧'}
+                </div>
+
+                <div class="sm:w-1/2 sm:pl-6 flex flex-wrap gap-x-2 gap-y-3 sm:justify-start sm:items-start self-start">
+                  {post.tags ? (
+                    post.tags.split(' ').map(tag => {
+                      const tagColors = {
+                        THM: 'bg-purple-600',
+                        HTB: 'bg-red-600',
+                        CiberLabs: 'bg-orange-600',
+                        Default: 'bg-cyan-800'
+                      };
+                      const color = tagColors[tag] || tagColors.Default;
+
+                      return (
+                        <span
+                          class={`text-white px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
+                        >
+                          🔖 {tag}
+                        </span>
+                      );
+                    })
+                  ) : (
+                    <span class="text-gray-500 italic">Sin etiquetas</span>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })}
     </div>
   </main>
 </Layout>
