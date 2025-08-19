@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 const ctfPosts = await getCollection('ctf');
 
 const simplified = ctfPosts
-  .sort((a, b) => new Date(b.data.publishedAt) - new Date(a.data.publishedAt)) // Ordenar por fecha más reciente
+  .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime()) // Ordenar por fecha más reciente
   .map((post) => ({
     title: post.data.title,
     platform: post.data.platform,
@@ -23,7 +23,7 @@ const simplified = ctfPosts
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10" x-data>
     <!-- Bento Grid: Móvil uniforme, Desktop con diferentes tamaños -->
-    <div class="grid grid-cols-8 gap-6">
+    <div class="grid grid-cols-8 gap-4 sm:gap-6">
         {simplified.map((post, i) => {
           const colSpan =
             i === 0 || i === 3 ? 'col-span-5' :
@@ -33,7 +33,7 @@ const simplified = ctfPosts
           return (
             <a
               href={`/ctf/${post.slug}`}
-              class={`group relative ${colSpan} bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400`}
+              class={`group relative ${colSpan} bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-3 sm:p-4 md:p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400`}
               data-title={post.title}
               data-platform={post.platform}
               data-tags={post.tags}
@@ -44,26 +44,28 @@ const simplified = ctfPosts
               <img
                 src={post.cover}
                 alt={`Portada de ${post.title}`}
-                class="w-full h-48 object-cover rounded mb-4"
+                class="w-full h-32 sm:h-40 md:h-48 object-cover rounded mb-3 sm:mb-4"
               />
               
               {/* Título y plataforma */}
-              <div class="mb-4">
-                <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition">
+              <div class="mb-3 sm:mb-4">
+                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-white group-hover:text-cyan-400 transition">
                   {post.title}
                 </h3>
-                <p class="text-sm text-gray-400">
+                <p class="text-xs sm:text-sm text-gray-400">
                   {post.platform} — {post.date}
                 </p>
               </div>
 
               {/* Descripción y etiquetas */}
-              <div class="flex flex-col sm:flex-row sm:justify-between gap-4 text-sm text-gray-400 leading-relaxed">
-                <div class="sm:w-1/2 sm:pr-6 sm:border-r sm:border-gray-700 text-gray-200 bg-black/30 p-3 rounded-md">
-                  {post.preview || 'Este writeup aún no tiene descripción. 🚧'}
+              <div class="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-gray-400 leading-relaxed">
+                <div class="sm:w-1/2 sm:pr-4 md:pr-6 sm:border-r sm:border-gray-700 text-gray-200 bg-black/30 p-2 sm:p-3 rounded-md">
+                  <div class="line-clamp-2 sm:line-clamp-3 md:line-clamp-none">
+                    {post.preview || 'Este writeup aún no tiene descripción. 🚧'}
+                  </div>
                 </div>
 
-                <div class="sm:w-1/2 sm:pl-6 flex flex-wrap gap-x-2 gap-y-3 sm:justify-start sm:items-start self-start">
+                <div class="sm:w-1/2 sm:pl-4 md:pl-6 flex flex-wrap gap-x-1 sm:gap-x-2 gap-y-1 sm:gap-y-2 md:gap-y-3 sm:justify-start sm:items-start self-start">
                   {post.tags ? (
                     post.tags.split(' ').map(tag => {
                       const tagColors = {
@@ -76,14 +78,14 @@ const simplified = ctfPosts
 
                       return (
                         <span
-                          class={`text-white px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
+                          class={`text-white px-1.5 sm:px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
                         >
                           🔖 {tag}
                         </span>
                       );
                     })
                   ) : (
-                    <span class="text-gray-500 italic">Sin etiquetas</span>
+                    <span class="text-gray-500 italic text-xs sm:text-sm">Sin etiquetas</span>
                   )}
                 </div>
               </div>
