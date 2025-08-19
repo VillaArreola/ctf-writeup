@@ -98,8 +98,7 @@ const simplified = ctfPosts
       <p
         class="text-sm text-gray-500 mt-6"
         x-show="!Array.from($el.previousElementSibling.children).some(el => el.offsetParent !== null) && $store.search.query"
-      >
-        😢 No se encontraron resultados para "<span x-text="$store.search.query"></span>".
-      </p>
+        x-text="`No se encontraron resultados para '${$store.search.query}'`"
+      ></p>
     </main>
 </Layout>

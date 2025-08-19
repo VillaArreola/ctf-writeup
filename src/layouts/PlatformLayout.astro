@@ -1,111 +1,108 @@
 ---
-// Astro Props
-const { posts, platform } = Astro.props;
-
-// Estilos globales y componentes
-import '../styles/global.css';
+import Layout from './layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import SearchBar from '../components/SearchBar.astro';
+import '../styles/global.css';
+
+// Astro Props
+const { posts, platform } = Astro.props;
+
+// Metadatos específicos para plataforma
+const platformTitle = `${platform.toUpperCase()} Writeups - Writeups CTF`;
+const platformDescription = `Writeups de CTF de ${platform.toUpperCase()} - Colección de write-ups técnicos de ${platform.toUpperCase()}`;
+const platformImage = "https://ctf.villaarreola.com/images/home-cover.svg";
+const platformUrl = `https://ctf.villaarreola.com/ctf/${platform.toLowerCase()}`;
 ---
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{platform} Writeups</title>
 
-    <!-- Alpine.js para búsqueda dinámica -->
-    <script type="module">
-      import Alpine from 'https://cdn.skypack.dev/alpinejs';
-      window.Alpine = Alpine;
-      Alpine.store('search', { query: '' });
-      Alpine.start();
-    </script>
-  </head>
-  <body class="bg-black text-white font-sans min-h-screen px-4 sm:px-6 py-6 sm:py-10 flex flex-col">
-    <Navbar />
-    <SearchBar />
+<Layout 
+  title={platformTitle}
+  description={platformDescription}
+  image={platformImage}
+  url={platformUrl}
+  type="website"
+>
+  <Navbar />
+  <SearchBar />
 
-    <main class="flex-1 max-w-6xl mx-auto w-full" x-data>
-      <div class="grid grid-cols-8 gap-4 sm:gap-6">
-        {posts.map((post, i) => {
-          const colSpan =
-            i === 0 || i === 3 ? 'col-span-5' :
-            i === 1 || i === 2 ? 'col-span-3' :
-            'col-span-4';
+  <main class="flex-1 max-w-6xl mx-auto w-full" x-data>
+    <div class="grid grid-cols-8 gap-4 sm:gap-6">
+      {posts.map((post, i) => {
+        const colSpan =
+          i === 0 || i === 3 ? 'col-span-5' :
+          i === 1 || i === 2 ? 'col-span-3' :
+          'col-span-4';
 
-          return (
-            <a
-              href={`/ctf/${post.slug}`}
-              class={`group relative ${colSpan} bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-3 sm:p-4 md:p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400`}
-              data-title={post.data.title}
-              data-platform={post.data.platform}
-              x-show="`${$el.dataset.title} ${$el.dataset.platform}`.toLowerCase().includes($store.search.query.toLowerCase())"
-            >
-              {/* Imagen de portada */}
-              <img
-                src={`/images/ctf/${post.slug}-cover.webp`}
-                onerror="this.src='/images/default-cover.svg';"
-                alt="Cover"
-                class="w-full h-32 sm:h-40 md:h-48 object-cover rounded mb-3 sm:mb-4"
-              />
-              {/* Título y plataforma */}
-              <div class="mb-3 sm:mb-4">
-                <h3 class="text-sm sm:text-base md:text-lg font-semibold text-white group-hover:text-cyan-400 transition">
-                  {post.data.title}
-                </h3>
-                <p class="text-xs sm:text-sm text-gray-400">
-                  {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
-                </p>
-              </div>
+        return (
+          <a
+            href={`/ctf/${post.slug}`}
+            class={`group relative ${colSpan} bg-gradient-to-b from-[#16181d] to-[#0d0e10] rounded-2xl p-3 sm:p-4 md:p-6 shadow-xl hover:scale-[1.01] transition duration-200 border border-gray-800 hover:border-cyan-400`}
+            data-title={post.data.title}
+            data-platform={post.data.platform}
+            x-show="`${$el.dataset.title} ${$el.dataset.platform}`.toLowerCase().includes($store.search.query.toLowerCase())"
+          >
+            {/* Imagen de portada */}
+            <img
+              src={`/images/ctf/${post.slug}-cover.webp`}
+              onerror="this.src='/images/default-cover.svg';"
+              alt="Cover"
+              class="w-full h-32 sm:h-40 md:h-48 object-cover rounded mb-3 sm:mb-4"
+            />
+            {/* Título y plataforma */}
+            <div class="mb-3 sm:mb-4">
+              <h3 class="text-sm sm:text-base md:text-lg font-semibold text-white group-hover:text-cyan-400 transition">
+                {post.data.title}
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-400">
+                {post.data.platform} — {new Date(post.data.publishedAt).toLocaleDateString()}
+              </p>
+            </div>
 
-              {/* Descripción y etiquetas */}
-              <div class="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-gray-400 leading-relaxed">
-                <div class="sm:w-1/2 sm:pr-4 md:pr-6 sm:border-r sm:border-gray-700 text-gray-200 bg-black/30 p-2 sm:p-3 rounded-md">
-                  <div class="line-clamp-2 sm:line-clamp-3 md:line-clamp-none">
-                    {post.data.preview || 'Este writeup aún no tiene descripción. 🚧'}
-                  </div>
+            {/* Descripción y etiquetas */}
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-gray-400 leading-relaxed">
+              <div class="sm:w-1/2 sm:pr-4 md:pr-6 sm:border-r sm:border-gray-700 text-gray-200 bg-black/30 p-2 sm:p-3 rounded-md">
+                <div class="line-clamp-2 sm:line-clamp-3 md:line-clamp-none">
+                  {post.data.preview || 'Este writeup aún no tiene descripción. 🚧'}
                 </div>
-
-                <div class="sm:w-1/2 sm:pl-4 md:pl-6 flex flex-wrap gap-x-1 sm:gap-x-2 gap-y-1 sm:gap-y-2 md:gap-y-3 sm:justify-start sm:items-start self-start">
-                  {post.data.tags?.map(tag => {
-      const tagColors = {
-        THM: 'bg-purple-600',
-        HTB: 'bg-red-600',
-        CiberLabs: 'bg-orange-600',
-        Default: 'bg-cyan-800'
-      };
-      const color = tagColors[tag] || tagColors.Default;
-
-      return (
-        <span
-          class={`text-white px-1.5 sm:px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
-        >
-          🔖 {tag}
-        </span>
-      );
-    }) || (
-      <span class="text-gray-500 italic text-xs sm:text-sm">Sin etiquetas</span>
-    )}
-                  </div>
               </div>
 
-            </a>
-          );
-        })}
-      </div>
+              <div class="sm:w-1/2 sm:pl-4 md:pl-6 flex flex-wrap gap-x-1 sm:gap-x-2 gap-y-1 sm:gap-y-2 md:gap-y-3 sm:justify-start sm:items-start self-start">
+                {post.data.tags?.map(tag => {
+                  const tagColors = {
+                    THM: 'bg-purple-600',
+                    HTB: 'bg-red-600',
+                    CiberLabs: 'bg-orange-600',
+                    Default: 'bg-cyan-800'
+                  };
+                  const color = tagColors[tag] || tagColors.Default;
 
-      {/* Sin resultados */}
-      <p
-        class="text-sm text-gray-500 mt-6"
-        x-show="!Array.from($el.previousElementSibling.children).some(el => el.offsetParent !== null) && $store.search.query"
-      >
-        😢 No se encontraron resultados para "<span x-text="$store.search.query"></span>".
-      </p>
-    </main>
-
-    <div class="hidden sm:block">
-      <Footer />
+                  return (
+                    <span
+                      class={`text-white px-1.5 sm:px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
+                    >
+                      🔖 {tag}
+                    </span>
+                  );
+                }) || (
+                  <span class="text-gray-500 italic text-xs sm:text-sm">Sin etiquetas</span>
+                )}
+              </div>
+            </div>
+          </a>
+        );
+      })}
     </div>
-  </body>
-</html>
+
+    {/* Sin resultados */}
+    <p
+      class="text-sm text-gray-500 mt-6"
+      x-show="!Array.from($el.previousElementSibling.children).some(el => el.offsetParent !== null) && $store.search.query"
+      x-text="`No se encontraron resultados para '${$store.search.query}'`"
+    ></p>
+  </main>
+
+  <Footer />
+  
+  <!-- Espaciador para el menú móvil inferior -->
+  <div class="h-20 sm:hidden"></div>
+</Layout>

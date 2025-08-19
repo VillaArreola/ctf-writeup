@@ -1,76 +1,38 @@
 ---
+import Layout from './layout.astro';
 import SidebarCTF from '../components/SidebarCTF.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 const { frontmatter } = Astro.props;
+
+// Metadatos específicos para CTF
+const ctfTitle = `${frontmatter.title} - Writeups CTF`;
+const ctfDescription = frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`;
+const ctfImage = frontmatter.cover ? `https://ctf.villaarreola.com${frontmatter.cover}` : 'https://ctf.villaarreola.com/images/default-cover.svg';
+const ctfUrl = `https://ctf.villaarreola.com/ctf/${frontmatter.slug}`;
 ---
 
-<html lang="es" class="min-h-screen">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Título dinámico -->
-    <title>{frontmatter.title} - Writeups CTF</title>
-    
-    <!-- Metadatos básicos -->
-    <meta name="description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
-    <meta name="author" content="Villa Arreola" />
-    <meta name="robots" content="index, follow" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`} />
-    <meta property="og:title" content={frontmatter.title} />
-    <meta property="og:description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
-    <meta property="og:image" content={frontmatter.cover ? `https://ctf.villaarreola.com${frontmatter.cover}` : 'https://ctf.villaarreola.com/images/default-cover.svg'} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Writeups CTF" />
-    <meta property="og:locale" content="es_MX" />
-    <meta property="article:published_time" content={frontmatter.publishedAt} />
-    <meta property="article:author" content="Villa Arreola" />
-    {frontmatter.tags?.map(tag => (
-      <meta property="article:tag" content={tag} />
-    ))}
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`} />
-    <meta property="twitter:title" content={frontmatter.title} />
-    <meta property="twitter:description" content={frontmatter.preview || `Write-up técnico de ${frontmatter.title} en ${frontmatter.platform}`} />
-    <meta property="twitter:image" content={frontmatter.cover ? `https://ctf.villaarreola.com${frontmatter.cover}` : 'https://ctf.villaarreola.com/images/default-cover.svg'} />
-    <meta property="twitter:creator" content="@villaarreola" />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/images/MVLOGO.png" />
-    <link rel="apple-touch-icon" href="/images/MVLOGO.png" />
-    
-    <!-- Tema de color -->
-    <meta name="theme-color" content="#0891b2" />
-    <meta name="msapplication-TileColor" content="#0891b2" />
-    
-    <!-- Comentarios -->
-    <script defer src="https://cusdis.com/js/cusdis.es.js"></script>
-  </head>
+<Layout 
+  title={ctfTitle}
+  description={ctfDescription}
+  image={ctfImage}
+  url={ctfUrl}
+  type="article"
+  publishedAt={frontmatter.publishedAt}
+  tags={frontmatter.tags || []}
+>
+  <Header frontmatter={frontmatter} />
 
-  <body class="min-h-screen flex flex-col bg-black text-white font-sans">
-    <Header frontmatter={frontmatter} />
-    
+  <div class="flex flex-grow max-w-7xl mx-auto py-10 px-6 w-full">
+    <!-- Sidebar con índice dinámico -->
+    <SidebarCTF frontmatter={frontmatter} />
 
-
-
-
-    <div class="flex flex-grow max-w-7xl mx-auto py-10 px-6 w-full">
-      <!-- Sidebar con índice dinámico -->
-      <SidebarCTF frontmatter={frontmatter} />
-
-      <!-- Contenido principal -->
-      <main class="w-4/5">
-        <!-- Banner del writeup -->
-        <section
+    <!-- Contenido principal -->
+    <main class="w-4/5">
+      <!-- Banner del writeup -->
+      <section
         class="relative w-full min-h-64 text-white overflow-hidden rounded-xl shadow mb-8 flex flex-col justify-end"
         style={`background-image: url('/images/ctf/${frontmatter.slug}-cover.webp'); background-size: cover; background-position: center;`}
       >
@@ -110,28 +72,23 @@ const { frontmatter } = Astro.props;
         </div>
       </section>
       
-      
+      <article class="prose prose-invert max-w-none">
+        <slot />
+      </article>
+    
+      <!-- Comentarios (mantener fuera del artículo) -->
+      <div class="mt-16">
+        <div
+          id="cusdis_thread"
+          data-host="https://cusdis.com"
+          data-app-id="TU_ID_CUSDIS"
+          data-page-id={frontmatter.slug}
+          data-page-url={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`}
+          data-page-title={frontmatter.title}
+        ></div>
+      </div>
+    </main>
+  </div>
 
-      
-      
-        <article class="prose prose-invert max-w-none">
-          <slot />
-        </article>
-      
-        <!-- Comentarios (mantener fuera del artículo) -->
-        <div class="mt-16">
-          <div
-            id="cusdis_thread"
-            data-host="https://cusdis.com"
-            data-app-id="TU_ID_CUSDIS"
-            data-page-id={frontmatter.slug}
-            data-page-url={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`}
-            data-page-title={frontmatter.title}
-          ></div>
-        </div>
-      </main>
-    </div>
-
-    <Footer />
-  </body>
-</html>
+  <Footer />
+</Layout>

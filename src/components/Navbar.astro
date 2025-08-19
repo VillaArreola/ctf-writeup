@@ -163,14 +163,21 @@
       </div>
     </aside>
 
-    <!-- Menú inferior flotante tipo app (visible solo en móviles) -->
-    <nav class="fixed bottom-0 left-0 right-0 flex justify-around bg-black border-t border-cyan-800 py-2 sm:hidden z-50">
-      <a href="/" class="text-white text-xs text-center"><span class="block text-lg">🏠</span>Home</a>
-      <a href="/ctf/htb" class="text-cyan-400 text-xs text-center"><span class="block text-lg">🧠</span>HTB</a>
-      <a href="/ctf/thm" class="text-cyan-400 text-xs text-center"><span class="block text-lg">🔍</span>THM</a>
-    </nav>
-  </div>
-</header>
+       </div>
+ </header>
+
+ <!-- Menú inferior flotante tipo app (visible solo en móviles) - FUERA del header -->
+ <nav class="fixed bottom-0 left-0 right-0 flex justify-around bg-black/95 backdrop-blur-sm border-t border-cyan-800 py-3 sm:hidden z-[9999] shadow-lg">
+   <a href="/" class="text-white text-xs text-center px-2 py-1 rounded-lg hover:bg-cyan-800/30 transition-colors">
+     <span class="block text-lg mb-1">🏠</span>Home
+   </a>
+   <a href="/ctf/htb" class="text-cyan-400 text-xs text-center px-2 py-1 rounded-lg hover:bg-cyan-800/30 transition-colors">
+     <span class="block text-lg mb-1">🧠</span>HTB
+   </a>
+   <a href="/ctf/thm" class="text-cyan-400 text-xs text-center px-2 py-1 rounded-lg hover:bg-cyan-800/30 transition-colors">
+     <span class="block text-lg mb-1">🔍</span>THM
+   </a>
+ </nav>
 
 <!-- Espaciador para compensar el navbar fijo -->
 <div class="h-20"></div>

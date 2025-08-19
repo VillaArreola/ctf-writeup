@@ -2,7 +2,7 @@
 // components/SearchBar.astro
 export const hydrate = 'load';
 ---
-<section class="bg-black px-6 py-6 text-white" x-data>
+<section class="bg-black px-6 py-6 text-white">
   <label for="search" class="block text-lg font-semibold mb-2">🔍 Buscar Máquinas o técnicas</label>
   <div class="relative">
     <input
@@ -26,19 +26,42 @@ export const hydrate = 'load';
   </div>
   
 
-  <div class="mt-4 text-sm text-gray-400">
+  <!-- Búsqueda rápida solo visible en desktop -->
+  <div class="hidden sm:block mt-4 text-sm text-gray-400">
     <p class="mb-1">Búsqueda rápida:</p>
     <div class="flex flex-wrap gap-3">
       <template x-for="ejemplo in ['HTB', 'THM', 'OSINT', 'Hydra', 'WordPress', 'nmap', 'SQLi', 'reverse shell', 'XSS', 'LFI', 'crackmapexec', 'dirb', 'burpsuite', 'gobuster', 'wfuzz', 'enum4linux', 'kerberoasting', 'GraphQL', 'subdomain', 'enumeration']" :key="ejemplo">
         <button
           type="button"
           @click="$store.search.query = ejemplo"
-          class="bg-cyan-800 text-white px-3 py-1 rounded-full text-xs hover:bg-cyan-700 transition"
+          class="bg-cyan-800 text-white px-3 py-1.5 rounded-full text-xs hover:bg-cyan-700 transition-colors"
           x-text="ejemplo"
         ></button>
       </template>
     </div>
   </div>
 </section>
+
+<style scoped>
+  /* Estilos específicos para el componente SearchBar */
+  .search-carousel-container {
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .search-carousel-container::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+  
+  .search-dropdown-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .search-dropdown-container::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+</style>
 
   

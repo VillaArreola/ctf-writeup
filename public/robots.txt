@@ -1,8 +1,26 @@
 User-agent: *
 Allow: /
 
+# Permitir acceso a recursos importantes
+Allow: /images/
+Allow: /ctf/
+
+# Bloquear acceso a archivos de desarrollo y configuración
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /astro.config.mjs
+Disallow: /tailwind.config.js
+Disallow: /tsconfig.json
+
 # Sitemap
 Sitemap: https://ctf.villaarreola.com/sitemap.xml
 
-# Crawl-delay (opcional, para ser amigable con los bots)
+# Crawl-delay (para ser amigable con los bots)
 Crawl-delay: 1
+
+# Información adicional para bots
+# Este sitio contiene writeups de CTF (Capture The Flag)
+# Última actualización: ${new Date().toISOString().split('T')[0]}
