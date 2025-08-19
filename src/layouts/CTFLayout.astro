@@ -1,5 +1,4 @@
 ---
-import Layout from './layout.astro';
 import SidebarCTF from '../components/SidebarCTF.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -14,81 +13,137 @@ const ctfImage = frontmatter.cover ? `https://ctf.villaarreola.com${frontmatter.
 const ctfUrl = `https://ctf.villaarreola.com/ctf/${frontmatter.slug}`;
 ---
 
-<Layout 
-  title={ctfTitle}
-  description={ctfDescription}
-  image={ctfImage}
-  url={ctfUrl}
-  type="article"
-  publishedAt={frontmatter.publishedAt}
-  tags={frontmatter.tags || []}
->
-  <Header frontmatter={frontmatter} />
+<html lang="es" class="min-h-screen">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- Título dinámico -->
+    <title>{ctfTitle}</title>
+    
+    <!-- Metadatos básicos -->
+    <meta name="description" content={ctfDescription} />
+    <meta name="author" content="Villa Arreola" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={ctfUrl} />
+    <meta property="og:title" content={ctfTitle} />
+    <meta property="og:description" content={ctfDescription} />
+    <meta property="og:image" content={ctfImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Writeups CTF" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="article:published_time" content={frontmatter.publishedAt} />
+    {frontmatter.tags?.map(tag => <meta property="article:tag" content={tag} />)}
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={ctfUrl} />
+    <meta property="twitter:title" content={ctfTitle} />
+    <meta property="twitter:description" content={ctfDescription} />
+    <meta property="twitter:image" content={ctfImage} />
+    <meta property="twitter:creator" content="@villaarreola" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/MVLOGO.png" />
+    <link rel="apple-touch-icon" href="/images/MVLOGO.png" />
+    
+    <!-- Tema de color -->
+    <meta name="theme-color" content="#0891b2" />
+    <meta name="msapplication-TileColor" content="#0891b2" />
+    
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- Alpine.js para búsqueda dinámica -->
+    <script type="module">
+      import Alpine from 'https://cdn.skypack.dev/alpinejs';
+      window.Alpine = Alpine;
+      Alpine.store('search', { query: '' });
+      Alpine.start();
+    </script>
+  </head>
 
-  <div class="flex flex-grow max-w-7xl mx-auto py-10 px-6 w-full">
-    <!-- Sidebar con índice dinámico -->
-    <SidebarCTF frontmatter={frontmatter} />
+  <body class="min-h-screen flex flex-col bg-black text-white font-sans px-4 sm:px-6 py-6 sm:py-10 relative">
+    <Header frontmatter={frontmatter} />
 
-    <!-- Contenido principal -->
-    <main class="w-4/5">
-      <!-- Banner del writeup -->
-      <section
-        class="relative w-full min-h-64 text-white overflow-hidden rounded-xl shadow mb-8 flex flex-col justify-end"
-        style={`background-image: url('/images/ctf/${frontmatter.slug}-cover.webp'); background-size: cover; background-position: center;`}
-      >
-        <!-- Contenido responsivo abajo -->
-        <div class="z-10 px-4 py-3 sm:px-6 sm:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 bg-gradient-to-t from-black/80 sm:bg-black/70 backdrop-blur-sm">
-          <!-- Info -->
-          <div class="flex flex-col gap-2">
-            <h1 class="text-xl sm:text-2xl font-bold text-cyan-400">{frontmatter.title}</h1>
-            <div class="flex gap-3 flex-wrap text-xs sm:text-sm text-gray-300">
-              <span>🧩 CVE: <strong>{frontmatter.cve ?? 'N/A'}</strong></span>
-              <span>💪 Dificultad: <strong>{frontmatter.difficulty ?? 'Desconocida'}</strong></span>
-              <span>📅 Fecha: <strong>{new Date(frontmatter.publishedAt).toLocaleDateString('es-MX')}</strong></span>
+    <div class="flex flex-col lg:flex-row flex-grow max-w-7xl mx-auto py-6 sm:py-10 px-4 sm:px-6 w-full relative z-10">
+      <!-- Sidebar con índice dinámico -->
+      <SidebarCTF frontmatter={frontmatter} />
+
+      <!-- Contenido principal -->
+      <main class="w-full lg:w-4/5 lg:pl-6 relative z-0">
+        <!-- Banner del writeup -->
+        <section
+          class="relative w-full min-h-48 sm:min-h-64 text-white overflow-hidden rounded-xl shadow mb-6 sm:mb-8 flex flex-col justify-end"
+          style={`background-image: url('/images/ctf/${frontmatter.slug}-cover.webp'); background-size: cover; background-position: center;`}
+        >
+          <!-- Contenido responsivo abajo -->
+          <div class="z-10 px-3 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 lg:gap-6 bg-gradient-to-t from-black/80 sm:bg-black/70 backdrop-blur-sm">
+            <!-- Info -->
+            <div class="flex flex-col gap-1 sm:gap-2">
+              <h1 class="text-lg sm:text-xl lg:text-2xl font-bold text-cyan-400">{frontmatter.title}</h1>
+              <div class="flex flex-col sm:flex-row gap-1 sm:gap-3 flex-wrap text-xs sm:text-sm text-gray-300">
+                <span>🧩 CVE: <strong>{frontmatter.cve ?? 'N/A'}</strong></span>
+                <span>💪 Dificultad: <strong>{frontmatter.difficulty ?? 'Desconocida'}</strong></span>
+                <span>📅 Fecha: <strong>{new Date(frontmatter.publishedAt).toLocaleDateString('es-MX')}</strong></span>
+              </div>
+            </div>
+        
+            <!-- Tags -->
+            <div class="flex gap-1 sm:gap-2 flex-wrap justify-start sm:justify-end">
+              {frontmatter.tags?.map(tag => {
+                const tagColors = {
+                  THM: 'bg-purple-600',
+                  HTB: 'bg-red-600',
+                  CiberLabs: 'bg-orange-600',
+                  OSINT: 'bg-yellow-500',
+                  Default: 'bg-cyan-800',
+                };
+                const color = tagColors[tag] || tagColors.Default;
+        
+                return (
+                  <span
+                    class={`text-white px-1.5 sm:px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
+                  >
+                    🔖 {tag}
+                  </span>
+                );
+              })}
             </div>
           </div>
+        </section>
+        
+        <article class="prose prose-invert max-w-none prose-sm sm:prose-base lg:prose-lg">
+          <slot />
+        </article>
       
-          <!-- Tags -->
-          <div class="flex gap-2 flex-wrap justify-start sm:justify-end">
-            {frontmatter.tags?.map(tag => {
-              const tagColors = {
-                THM: 'bg-purple-600',
-                HTB: 'bg-red-600',
-                CiberLabs: 'bg-orange-600',
-                OSINT: 'bg-yellow-500',
-                Default: 'bg-cyan-800',
-              };
-              const color = tagColors[tag] || tagColors.Default;
-      
-              return (
-                <span
-                  class={`text-white px-2 py-0.5 rounded-full text-xs whitespace-nowrap hover:brightness-110 transition duration-200 ${color}`}
-                >
-                  🔖 {tag}
-                </span>
-              );
-            })}
-          </div>
+        <!-- Comentarios (mantener fuera del artículo) -->
+        <div class="mt-8 sm:mt-16">
+          <div
+            id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="TU_ID_CUSDIS"
+            data-page-id={frontmatter.slug}
+            data-page-url={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`}
+            data-page-title={frontmatter.title}
+          ></div>
         </div>
-      </section>
-      
-      <article class="prose prose-invert max-w-none">
-        <slot />
-      </article>
-    
-      <!-- Comentarios (mantener fuera del artículo) -->
-      <div class="mt-16">
-        <div
-          id="cusdis_thread"
-          data-host="https://cusdis.com"
-          data-app-id="TU_ID_CUSDIS"
-          data-page-id={frontmatter.slug}
-          data-page-url={`https://ctf.villaarreola.com/ctf/${frontmatter.slug}`}
-          data-page-title={frontmatter.title}
-        ></div>
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
 
-  <Footer />
-</Layout>
+    <Footer />
+    
+    <!-- Espaciador para el menú móvil inferior -->
+    <div class="h-20 sm:hidden"></div>
+  </body>
+</html>

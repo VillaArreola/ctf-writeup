@@ -6,6 +6,29 @@
   display: none !important;
 }
 
+/* Prevenir zoom en inputs en iOS */
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Mejorar scroll en móviles */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Estilos para line-clamp (truncar texto) */
 .line-clamp-2 {
   display: -webkit-box;
