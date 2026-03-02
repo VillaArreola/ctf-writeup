@@ -1,15 +1,15 @@
+# Bloque para bots de IA específicos
+User-agent: GPTBot
+User-agent: anthropic-ai
+User-agent: ChatGPT-User
+Disallow: /
+
+# Bloque general para el resto (Google, Bing, etc.)
 User-agent: *
 Allow: /
 Allow: /images/
 Allow: /ctf/
-
-# Bloqueamos lo que realmente podría ser indexado por error
 Disallow: /api/
-Disallow: /_astro/ # Opcional: si no quieres que indexen los assets directamente
+Disallow: /_astro/
 Disallow: /private/
-
-# Evitamos que bots de IA genéricos se lleven tus writeups sin permiso
-User-agent: GPTBot
-Disallow: /
-
 Sitemap: https://ctf.villaarreola.com/sitemap.xml
