@@ -1,8 +1,3 @@
-# Bloque para bots de IA específicos
-User-agent: GPTBot
-User-agent: anthropic-ai
-User-agent: ChatGPT-User
-Disallow: /
 
 User-agent: *
 Allow: /
