@@ -4,12 +4,10 @@ User-agent: anthropic-ai
 User-agent: ChatGPT-User
 Disallow: /
 
-# Bloque general para el resto (Google, Bing, etc.)
 User-agent: *
 Allow: /
 Allow: /images/
 Allow: /ctf/
 Disallow: /api/
-Disallow: /_astro/
 Disallow: /private/
 Sitemap: https://ctf.villaarreola.com/sitemap.xml
